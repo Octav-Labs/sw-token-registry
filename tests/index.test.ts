@@ -1,5 +1,3 @@
-// src/index.test.ts
-
 import { foo } from '../src/index';
 
 describe('Constants', () => {

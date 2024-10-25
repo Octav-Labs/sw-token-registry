@@ -1,2 +1,8 @@
+import axios from 'axios';
+
 const foo = 'bar';
-export { foo };
+function baz() {
+  return axios.get('');
+}
+
+export { foo, baz };
