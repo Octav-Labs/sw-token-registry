@@ -1,6 +1,6 @@
 {
   "name": "@sonarwatch/token-registry",
-  "private": false,
+  "private": true,
   "version": "1.0.4",
   "description": "",
   "type": "module",
