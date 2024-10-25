@@ -13,14 +13,13 @@ jobs:
     steps:
       # Step 1: Checkout the code
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Step 2: Set up Node.js
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '20' # Adjust Node.js version as needed
-          cache: 'npm'
 
       # Step 3: Install dependencies
       - name: Install dependencies
