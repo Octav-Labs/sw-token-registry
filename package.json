@@ -2,6 +2,9 @@
   "name": "@sonarwatch/token-registry",
   "version": "1.0.8",
   "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "",
   "type": "module",
   "files": [
