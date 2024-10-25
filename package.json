@@ -3,13 +3,17 @@
   "version": "1.0.0",
   "description": "",
   "type": "module",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
     "format": "prettier --write 'src/**/*.{ts,tsx}'",
     "prettier-check": "prettier --check 'src/**/*.{ts,tsx}'",
     "clean": "rm -rf dist",
-    "test": "node --experimental-vm-modules node_modules/.bin/jest"
+    "test": "node --experimental-vm-modules node_modules/.bin/jest",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [],
   "author": "",
