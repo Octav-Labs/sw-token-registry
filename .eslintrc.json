@@ -17,7 +17,8 @@
     "project": "./tsconfig.json"
   },
   "plugins": ["@typescript-eslint"],
+  "ignorePatterns": ["jest.config.js"],
   "rules": {
-    // Customize your rules here
+    "@typescript-eslint/lines-between-class-members": "off"
   }
 }
