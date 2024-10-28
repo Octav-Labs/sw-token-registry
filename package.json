@@ -38,6 +38,8 @@
     "typescript": "^5.6.3"
   },
   "dependencies": {
-    "axios": "^1.7.7"
+    "@aws-sdk/client-s3": "^3.679.0",
+    "axios": "^1.7.7",
+    "ioredis": "^5.4.1"
   }
 }

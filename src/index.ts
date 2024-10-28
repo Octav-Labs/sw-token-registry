@@ -6,3 +6,5 @@ function baz() {
 }
 
 export { foo, baz };
+
+export { TokenRegistry } from './TokenRegistry.js';
