@@ -4,7 +4,7 @@ import {
   S3Client,
   S3ClientConfig,
 } from '@aws-sdk/client-s3';
-import { Logger } from './Logger.js';
+import { Logger } from './Logger';
 
 export type TokenRegistryConfig = {
   logger?: Logger;
