@@ -30,6 +30,7 @@ describe('TokenRegistry', () => {
         forcePathStyle: true,
         region: s3Region,
       },
+      jobs: [],
     });
     await tokenRegistry.checkS3Client();
     expect(tokenRegistry).toBeDefined();

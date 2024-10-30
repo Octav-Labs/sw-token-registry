@@ -1,6 +1,8 @@
 import { NetworkIdType } from '@sonarwatch/portfolio-core';
 import Fetcher from './Fetcher';
 import { EvmFetcher, SolanaFetcher } from './fetchers';
+import { Job } from './Job';
+import { coingeckoJob, jupiterJob } from './jobs';
 
 export type GetDefaultFetchersConfig = {
   solana: {
@@ -10,6 +12,10 @@ export type GetDefaultFetchersConfig = {
     rpc: string;
   };
 };
+
+export function getDefaultJobs(): Job[] {
+  return [coingeckoJob, jupiterJob];
+}
 
 export function getDefaultFetchers(
   config: GetDefaultFetchersConfig

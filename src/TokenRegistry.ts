@@ -7,12 +7,14 @@ import {
 import { NetworkIdType } from '@sonarwatch/portfolio-core';
 import { Logger } from './Logger';
 import Fetcher from './Fetcher';
+import { Job } from './Job';
 
 export type TokenRegistryConfig = {
   logger?: Logger;
   redisOptions: RedisOptions;
   s3Config: S3ClientConfig & { bucket: string };
   fetchers: Partial<Record<NetworkIdType, Fetcher>>;
+  jobs: Job[];
 };
 
 export class TokenRegistry {
@@ -21,10 +23,12 @@ export class TokenRegistry {
   private s3Client: S3Client;
   private s3Bucket: string;
   private fetchers: Partial<Record<NetworkIdType, Fetcher>>;
+  private jobs: Job[];
 
   constructor(config: TokenRegistryConfig) {
     this.logger = config.logger;
     this.fetchers = config.fetchers;
+    this.jobs = config.jobs;
 
     // Redis
     this.redisClient = new Redis(config.redisOptions);
