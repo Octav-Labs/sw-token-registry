@@ -4,12 +4,15 @@ import {
   S3Client,
   S3ClientConfig,
 } from '@aws-sdk/client-s3';
+import { NetworkIdType } from '@sonarwatch/portfolio-core';
 import { Logger } from './Logger';
+import Fetcher from './Fetcher';
 
 export type TokenRegistryConfig = {
   logger?: Logger;
   redisOptions: RedisOptions;
   s3Config: S3ClientConfig & { bucket: string };
+  fetchers: Partial<Record<NetworkIdType, Fetcher>>;
 };
 
 export class TokenRegistry {
@@ -17,9 +20,11 @@ export class TokenRegistry {
   private redisClient: Redis;
   private s3Client: S3Client;
   private s3Bucket: string;
+  private fetchers: Partial<Record<NetworkIdType, Fetcher>>;
 
   constructor(config: TokenRegistryConfig) {
     this.logger = config.logger;
+    this.fetchers = config.fetchers;
 
     // Redis
     this.redisClient = new Redis(config.redisOptions);
