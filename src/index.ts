@@ -1,4 +1,6 @@
+import Fetcher from './Fetcher';
+
+export { Fetcher };
 export * from './Logger';
-export * from './Fetcher';
 export * from './TokenRegistry';
 export * from './fetchers';
