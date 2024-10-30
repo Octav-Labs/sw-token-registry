@@ -1,6 +1,6 @@
-import { UniTokenInfo } from '@sonarwatch/portfolio-core';
 import axios, { AxiosResponse } from 'axios';
 import Fetcher from '../Fetcher';
+import { Token } from '../types';
 
 type DasGetAsset = {
   error?: unknown;
@@ -30,7 +30,7 @@ export default class SolanaFetcher extends Fetcher {
     this.dasUrl = dasUrl;
   }
 
-  async fetch(address: string): Promise<UniTokenInfo | null> {
+  async fetch(address: string): Promise<Token | null> {
     const res: AxiosResponse<DasGetAsset> = await axios.post(this.dasUrl, {
       jsonrpc: '2.0',
       id: 'text',

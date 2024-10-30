@@ -1,5 +1,5 @@
-import { UniTokenInfo } from '@sonarwatch/portfolio-core';
+import { Token } from './types';
 
 export default abstract class Fetcher {
-  abstract fetch(address: string): Promise<UniTokenInfo | null>;
+  abstract fetch(address: string): Promise<Token | null>;
 }

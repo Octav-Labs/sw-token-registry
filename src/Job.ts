@@ -1,3 +1,3 @@
-import { UniTokenInfo } from '@sonarwatch/portfolio-core';
+import { Token } from './types';
 
-export type Job = () => Promise<UniTokenInfo[]>;
+export type Job = () => Promise<Token[]>;

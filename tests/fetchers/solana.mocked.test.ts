@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { UniTokenInfo } from '@sonarwatch/portfolio-core';
 import SolanaFetcher from '../../src/fetchers/solana';
+import { Token } from '../../src/types';
 
 // Mock the axios module
 jest.mock('axios');
@@ -16,7 +16,7 @@ describe('SolanaFetcher', () => {
 
   it('should call the correct URL and return data when fetch is called', async () => {
     const address = 'sample-address';
-    const mockResponse: UniTokenInfo = {
+    const mockResponse: Token = {
       name: 'Sample Token',
       symbol: 'STK',
       decimals: 6,

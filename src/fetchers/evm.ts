@@ -1,6 +1,6 @@
-import { UniTokenInfo } from '@sonarwatch/portfolio-core';
 import axios from 'axios';
 import Fetcher from '../Fetcher';
+import { Token } from '../types';
 
 export default class EvmFetcher extends Fetcher {
   private rpc: string;
@@ -10,7 +10,7 @@ export default class EvmFetcher extends Fetcher {
     this.rpc = rpc;
   }
 
-  async fetch(address: string): Promise<UniTokenInfo | null> {
+  async fetch(address: string): Promise<Token | null> {
     const res = await axios.post(this.rpc, {
       jsonrpc: '2.0',
       id: 'text',
