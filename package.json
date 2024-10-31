@@ -39,7 +39,6 @@
     "typescript": "^5.6.3"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.679.0",
     "@sonarwatch/portfolio-core": "^0.14.16",
     "axios": "^1.7.7",
     "ioredis": "^5.4.1"

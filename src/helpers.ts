@@ -3,6 +3,7 @@ import Fetcher from './Fetcher';
 import { EvmFetcher, SolanaFetcher } from './fetchers';
 import { Job } from './Job';
 import { coingeckoJob, jupiterJob } from './jobs';
+import { Token } from './types';
 
 export type GetDefaultFetchersConfig = {
   solana: {
@@ -12,6 +13,10 @@ export type GetDefaultFetchersConfig = {
     rpc: string;
   };
 };
+
+export function defaultTransformToken(token: Token): Token {
+  return token;
+}
 
 export function getDefaultJobs(): Job[] {
   return [coingeckoJob, jupiterJob];
