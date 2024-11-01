@@ -5,12 +5,16 @@ import { Job } from './Job';
 import { jupiterJob } from './jobs';
 import { Token } from './types';
 import getCoingeckoJob from './jobs/coingeckoJob';
+import SuiFetcher from './fetchers/sui';
 
 export type GetDefaultFetchersConfig = {
   solana: {
     dasUrl: string;
   };
   ethereum: {
+    rpc: string;
+  };
+  sui: {
     rpc: string;
   };
 };
@@ -29,6 +33,7 @@ export function getDefaultFetchers(
   return {
     solana: new SolanaFetcher(config.solana.dasUrl),
     ethereum: new EvmFetcher(config.ethereum.rpc, NetworkId.ethereum),
+    sui: new SuiFetcher(config.sui.rpc),
   };
 }
 
