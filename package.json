@@ -12,7 +12,8 @@
   ],
   "scripts": {
     "build": "tsc",
-    "test": "jest",
+    "test": "jest --testPathIgnorePatterns=tests/integration/",
+    "test:integration": "jest tests/integration/",
     "lint": "eslint 'src/**/*.ts' 'tests/**/*.ts'",
     "format": "prettier --write 'src/**/*.ts' 'tests/**/*.ts'",
     "clean": "rm -rf dist",

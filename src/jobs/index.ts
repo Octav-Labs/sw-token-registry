@@ -1,4 +1,4 @@
-import coingeckoJob from './coingeckoJob';
+import getCoingeckoJob from './coingeckoJob';
 import jupiterJob from './jupiterJob';
 
-export { coingeckoJob, jupiterJob };
+export { getCoingeckoJob, jupiterJob };
