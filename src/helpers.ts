@@ -40,3 +40,29 @@ export function getDefaultFetchers(
 export function stringToBoolean(str: string): boolean {
   return str === 'true';
 }
+
+const platforms: Record<string, string> = {
+  aptos: 'aptos',
+  avalanche: 'avalanche',
+  bnb: 'binance-smart-chain',
+  arbitrum: 'arbitrum-one',
+  base: 'base',
+  cronos: 'cronos',
+  gnosis: 'xdai',
+  linea: 'linea',
+  scroll: 'scroll',
+  zksync: 'zksync',
+  'polygon-zkevm': 'polygon-zkevm',
+  ethereum: 'ethereum',
+  optimism: 'optimistic-ethereum',
+  polygon: 'polygon-pos',
+  solana: 'solana',
+  sui: 'sui',
+  sei: 'sei',
+};
+
+export function coingeckoPlatformFromNetworkId(networkId: NetworkIdType) {
+  const platform = platforms[networkId];
+  if (!platform) throw new Error('Platform is missing');
+  return platform;
+}
