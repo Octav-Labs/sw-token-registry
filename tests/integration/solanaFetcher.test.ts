@@ -10,8 +10,14 @@ describe('SolanaFetcher', () => {
     fetcher = new SolanaFetcher(dasUrl);
   });
 
-  it('should return null if token doesnt exists', async () => {
+  it('should return null if token address is not valid', async () => {
     const address = 'address_that_doesnt_exist';
+    const tokenInfo = await fetcher.fetch(address);
+    expect(tokenInfo).toBe(null);
+  });
+
+  it('should return null if address is valid but not a token', async () => {
+    const address = '1112223334445555666777888uuuuuuuuuuuuuuuuuu';
     const tokenInfo = await fetcher.fetch(address);
     expect(tokenInfo).toBe(null);
   });

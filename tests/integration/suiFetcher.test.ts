@@ -10,10 +10,22 @@ describe('suiFetcher', () => {
     fetcher = new SuiFetcher(rpc);
   });
 
-  it('should return null if token doesnt exists', async () => {
+  it('should return null if token address is not valid', async () => {
     const address = 'address_that_doesnt_exist';
     const tokenInfo = await fetcher.fetch(address);
     expect(tokenInfo).toBe(null);
+  });
+
+  it('should return null if address is valid but not a token', async () => {
+    const address =
+      '0x5f3a18cdfd7ef0527a65ba5c07dbe0efe276507d4d1a4d1bebe87f5d40df6cf6::boby::BOBY';
+    const tokenInfo = await fetcher.fetch(address);
+    expect(tokenInfo).toBe(null);
+
+    const address2 =
+      '0x5f3a18cdfd7ef0527a65ba5c07dbe0efe276507d4d1a4d1bebe87f5d40df6cf5::boby::BOBY';
+    const tokenInfo2 = await fetcher.fetch(address2);
+    expect(tokenInfo2).toBe(null);
   });
 
   it('should return BOB token', async () => {
