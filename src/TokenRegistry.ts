@@ -5,7 +5,7 @@ import Fetcher from './Fetcher';
 import { Job } from './Job';
 import { Token } from './types';
 import { TtlMap } from './TtlMap';
-import { defaultTransformToken } from './helpers';
+import { defaultTransformToken } from './misc';
 
 export type TokenRegistryConfig = {
   logger?: Logger;
@@ -82,8 +82,8 @@ export class TokenRegistry {
 
   async disconnect(): Promise<void> {
     try {
+      this.ttlMap.stopCleanup();
       await this.redisClient.quit();
-      this.logger?.info('TokenRegistry disconnected from Redis');
     } catch (error) {
       this.logger?.error('TokenRegistry error disconnecting from Redis', error);
     }
