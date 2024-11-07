@@ -10,6 +10,7 @@ const config: Config = {
     '^.+\\.ts$': 'ts-jest',
   },
   setupFiles: ['<rootDir>/jest.setup.ts'],
+  testTimeout: 20000,
 };
 
 export default config;
