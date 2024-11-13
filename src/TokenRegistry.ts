@@ -11,7 +11,7 @@ import Fetcher from './Fetcher';
 import { Job } from './Job';
 import { Token } from './types';
 import { TtlMap } from './TtlMap';
-import { defaultTransformToken } from './misc';
+import { defaultTransformToken } from './helpers/misc';
 import tokenSchema from './tokenSchema';
 
 // Prepare AJV

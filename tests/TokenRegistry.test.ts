@@ -1,5 +1,5 @@
 import { TokenRegistry } from '../src/TokenRegistry';
-import { getDefaultFetchers } from '../src/misc';
+import { getDefaultFetchers } from '../src/helpers/misc';
 
 describe('TokenRegistry', () => {
   it('sould be instantiable', async () => {
@@ -7,6 +7,7 @@ describe('TokenRegistry', () => {
       solana: { dasUrl: 'https://foo.com' },
       ethereum: { rpc: 'https://foo.com' },
       sui: { rpc: 'https://foo.com' },
+      aptos: { rpc: 'https://foo.com' },
     });
     const tokenRegistry = new TokenRegistry({
       fetchers,

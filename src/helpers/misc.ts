@@ -3,14 +3,14 @@ import {
   NetworkIdType,
   uniformTokenAddress,
 } from '@sonarwatch/portfolio-core';
-import Fetcher from './Fetcher';
-import { EvmFetcher, SolanaFetcher } from './fetchers';
-import { Job } from './Job';
-import { jupiterJob } from './jobs';
-import { Token } from './types';
-import getCoingeckoJob from './jobs/coingeckoJob';
-import SuiFetcher from './fetchers/sui';
-import AptosFetcher from './fetchers/aptos';
+import Fetcher from '../Fetcher';
+import { EvmFetcher, SolanaFetcher } from '../fetchers';
+import { Job } from '../Job';
+import { jupiterJob } from '../jobs';
+import { Token } from '../types';
+import getCoingeckoJob from '../jobs/coingeckoJob';
+import SuiFetcher from '../fetchers/sui';
+import AptosFetcher from '../fetchers/aptos';
 
 export type GetDefaultFetchersConfig = {
   solana: {
