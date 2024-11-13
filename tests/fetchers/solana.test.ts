@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { NetworkId } from '@sonarwatch/portfolio-core';
 import SolanaFetcher from '../../src/fetchers/solana';
 import { Token } from '../../src/types';
 
@@ -64,6 +65,7 @@ describe('SolanaFetcher', () => {
       name: 'Pyth Network',
       symbol: 'PYTH',
       logoURI: 'https://pyth.network/token.svg',
+      networkId: NetworkId.solana,
     };
     expect(result).toEqual(pythToken);
   });

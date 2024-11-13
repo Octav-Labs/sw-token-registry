@@ -1,5 +1,5 @@
 import { Aptos, AptosConfig, Network } from '@aptos-labs/ts-sdk';
-import { isMoveAddress } from '@sonarwatch/portfolio-core';
+import { isMoveAddress, NetworkId } from '@sonarwatch/portfolio-core';
 import Fetcher from '../Fetcher';
 import { Token } from '../types';
 import urlToUrlWithHeaders from '../helpers/urlToUrlWithHeaders';
@@ -73,6 +73,7 @@ export default class AptosFetcher extends Fetcher {
       name,
       symbol,
       logoURI,
+      networkId: NetworkId.aptos,
     };
   }
 }

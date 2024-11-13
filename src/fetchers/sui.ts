@@ -2,6 +2,7 @@ import {
   SuiClient as MystenSuiClient,
   SuiHTTPTransport,
 } from '@mysten/sui/client';
+import { NetworkId } from '@sonarwatch/portfolio-core';
 import Fetcher from '../Fetcher';
 import { Token } from '../types';
 
@@ -38,6 +39,7 @@ export default class SuiFetcher extends Fetcher {
       name: res.name,
       symbol: res.symbol,
       logoURI: res.iconUrl || undefined,
+      networkId: NetworkId.sui,
     };
   }
 }

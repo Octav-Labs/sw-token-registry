@@ -27,8 +27,8 @@ function coingeckoPlatformFromNetworkId(networkId: NetworkIdType) {
   return platform;
 }
 
-function getCoingeckoJob(network: NetworkIdType) {
-  const d = coingeckoPlatformFromNetworkId(network);
+function getCoingeckoJob(networkId: NetworkIdType) {
+  const d = coingeckoPlatformFromNetworkId(networkId);
   console.log('d:', d);
   const coingeckoJob: Job = async () => [
     {
@@ -37,6 +37,7 @@ function getCoingeckoJob(network: NetworkIdType) {
       decimals: 1,
       name: '',
       symbol: '',
+      networkId,
     },
   ];
   return coingeckoJob;

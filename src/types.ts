@@ -1,3 +1,5 @@
-import { UniTokenInfo } from '@sonarwatch/portfolio-core';
+import { NetworkIdType, UniTokenInfo } from '@sonarwatch/portfolio-core';
 
-export type Token = UniTokenInfo;
+export type Token = UniTokenInfo & {
+  networkId: NetworkIdType;
+};

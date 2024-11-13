@@ -1,5 +1,7 @@
 import axios from 'axios';
+import { NetworkId } from '@sonarwatch/portfolio-core';
 import { Job } from '../Job';
+import { Token } from '../types';
 
 async function getJupTokens() {
   const res = await axios.get('https://tokens.jup.ag/tokens', {
@@ -12,7 +14,7 @@ async function getJupTokens() {
 
 const jupiterJob: Job = async () => {
   const jupTokens = await getJupTokens();
-  const tokens = new Map();
+  const tokens = new Map<string, Token>();
   for (let i = 0; i < jupTokens.length; i += 1) {
     const jupToken = jupTokens[i];
     tokens.set(jupToken.address, {
@@ -22,6 +24,7 @@ const jupiterJob: Job = async () => {
       name: jupToken.name,
       symbol: jupToken.symbol,
       logoURI: jupToken.logoURI,
+      networkId: NetworkId.solana,
     });
   }
   return Array.from(tokens.values());

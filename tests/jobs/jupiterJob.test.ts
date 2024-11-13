@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { NetworkId } from '@sonarwatch/portfolio-core';
 import jupiterJob from '../../src/jobs/jupiterJob';
 
 jest.mock('axios');
@@ -39,6 +40,7 @@ describe('jupiterJob', () => {
         name: 'Token One',
         symbol: 'TKN1',
         logoURI: 'https://example.com/token1.png',
+        networkId: NetworkId.solana,
       },
       {
         address: 'token2',
@@ -47,6 +49,7 @@ describe('jupiterJob', () => {
         name: 'Token Two',
         symbol: 'TKN2',
         logoURI: 'https://example.com/token2.png',
+        networkId: NetworkId.solana,
       },
     ];
 

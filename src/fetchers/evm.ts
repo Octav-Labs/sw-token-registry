@@ -17,7 +17,7 @@ export const viemChainsByNetworkId: Record<EvmNetworkIdType, Chain> = {
 };
 
 export default class EvmFetcher extends Fetcher {
-  readonly networkId: string;
+  readonly networkId: EvmNetworkIdType;
   private client: PublicClient;
   private network: Network;
 
@@ -71,6 +71,7 @@ export default class EvmFetcher extends Fetcher {
       decimals,
       symbol,
       name,
+      networkId: this.networkId,
     };
   }
 }

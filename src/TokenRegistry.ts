@@ -1,11 +1,23 @@
 import { Redis, RedisOptions } from 'ioredis';
-import { NetworkIdType } from '@sonarwatch/portfolio-core';
+import Ajv from 'ajv';
+import addFormats from 'ajv-formats';
+import {
+  NetworkIdType,
+  uniformTokenAddress,
+  UniTokenAddress,
+} from '@sonarwatch/portfolio-core';
 import { Logger } from './Logger';
 import Fetcher from './Fetcher';
 import { Job } from './Job';
 import { Token } from './types';
 import { TtlMap } from './TtlMap';
 import { defaultTransformToken } from './misc';
+import tokenSchema from './tokenSchema';
+
+// Prepare AJV
+const ajv = new Ajv();
+addFormats(ajv);
+const validateToken = ajv.compile(tokenSchema);
 
 export type TokenRegistryConfig = {
   logger?: Logger;
@@ -14,7 +26,7 @@ export type TokenRegistryConfig = {
   jobs: Job[];
   redisTtlMs?: number;
   memoryTtlMs?: number;
-  transformToken?: (token: Token) => Token;
+  transformToken?: (token: Token) => Promise<Token>;
 };
 
 export class TokenRegistry {
@@ -25,7 +37,7 @@ export class TokenRegistry {
   private redisTtl: number;
   private memoryTtl: number;
   private ttlMap: TtlMap<string, Token | null>;
-  private transformToken: (token: Token) => Token;
+  private transformToken: (token: Token) => Promise<Token>;
 
   constructor(config: TokenRegistryConfig) {
     this.logger = config.logger;
@@ -55,7 +67,8 @@ export class TokenRegistry {
     networkId: NetworkIdType,
     address: string
   ): Promise<Token | null> {
-    const key = `token:${networkId}:${address}`;
+    const uniTokAddress = uniformTokenAddress(address, networkId);
+    const key = `token:${networkId}:${uniTokAddress}`;
 
     // Check ttlMap
     const memoryToken = await this.ttlMap.get(key);
@@ -63,21 +76,26 @@ export class TokenRegistry {
 
     // Check Redis cache first
     const redisToken = await this.redisClient.get(key);
-    if (redisToken) return JSON.parse(redisToken) as Token | null;
+    if (redisToken !== null) return JSON.parse(redisToken) as Token | null;
 
     // Fetch if not in cache
-    const token = await this.fetch(networkId, address);
+    const token = await this.fetch(networkId, uniTokAddress);
     this.ttlMap.set(key, token);
     await this.redisClient.set(key, JSON.stringify(token), 'EX', this.redisTtl);
     return token;
   }
 
-  private async fetch(networkId: NetworkIdType, address: string) {
+  private async fetch(
+    networkId: NetworkIdType,
+    address: UniTokenAddress
+  ): Promise<Token | null> {
     if (!this.fetchers[networkId])
       throw new Error(`Fetcher network is not configured: ${networkId}`);
-    const token = await this.fetchers[networkId].fetch(address);
-    const fToken = token ? this.transformToken(token) : null;
-    return fToken;
+    let token = await this.fetchers[networkId].fetch(address);
+    if (token) token = await this.transformToken(token);
+    const valid = validateToken(token);
+    if (!valid) token = null;
+    return token;
   }
 
   async disconnect(): Promise<void> {

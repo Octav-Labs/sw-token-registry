@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
+import { NetworkId } from '@sonarwatch/portfolio-core';
 import Fetcher from '../Fetcher';
 import { Token } from '../types';
 
@@ -50,6 +51,7 @@ export default class SolanaFetcher extends Fetcher {
       name: res.data.result.content?.metadata.name,
       symbol: res.data.result.content.metadata.symbol,
       logoURI: res.data.result.content.links?.image,
+      networkId: NetworkId.solana,
     };
   }
 }
