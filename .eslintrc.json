@@ -7,8 +7,8 @@
   },
   "extends": [
     "airbnb-base",
-    "airbnb-typescript/base",
     "plugin:@typescript-eslint/recommended",
+    "airbnb-typescript/base",
     "prettier"
   ],
   "parser": "@typescript-eslint/parser",
@@ -21,6 +21,8 @@
   "rules": {
     "@typescript-eslint/lines-between-class-members": "off",
     "import/prefer-default-export": "off",
-    "no-restricted-syntax": "off"
+    "no-restricted-syntax": "off",
+    "no-await-in-loop": "off",
+    "no-continue": "off"
   }
 }
