@@ -11,8 +11,5 @@ describe('coingeckoJob', () => {
     // Check that the result is an array and has more than 20 items
     expect(Array.isArray(result)).toBe(true);
     expect(result.length).toBeGreaterThan(20);
-
-    // eslint-disable-next-line no-console
-    console.log(`Total tokens fetched: ${result.length}`);
   });
 });
