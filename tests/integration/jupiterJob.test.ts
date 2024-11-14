@@ -1,6 +1,6 @@
 import jupiterJob from '../../src/jobs/jupiterJob';
 
-describe('jupiterJob (integration test)', () => {
+describe('jupiterJob', () => {
   jest.setTimeout(200000); // Increase the timeout to handle potential network delays
 
   it('should fetch and return more than 50,000 tokens', async () => {
