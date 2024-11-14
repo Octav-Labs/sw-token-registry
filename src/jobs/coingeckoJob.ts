@@ -5,9 +5,8 @@ import {
   uniformTokenAddress,
 } from '@sonarwatch/portfolio-core';
 import axios, { AxiosResponse } from 'axios';
-import { Job } from '../Job';
 import { sleep } from '../helpers/misc';
-import { Token } from '../types';
+import { Token, Job } from '../types';
 
 const platforms: Record<string, string> = {
   aptos: 'aptos',

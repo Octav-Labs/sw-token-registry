@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { NetworkId } from '@sonarwatch/portfolio-core';
-import { Job } from '../Job';
-import { Token } from '../types';
+import { Token, Job } from '../types';
 
 async function getJupTokens() {
   const res = await axios.get('https://tokens.jup.ag/tokens', {

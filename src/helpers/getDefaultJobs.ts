@@ -1,6 +1,6 @@
 import { NetworkId } from '@sonarwatch/portfolio-core';
 import { getCoingeckoJob, jupiterJob } from '../jobs';
-import { Job } from '../Job';
+import { Job } from '../types';
 
 export function getDefaultJobs(): Job[] {
   return [
