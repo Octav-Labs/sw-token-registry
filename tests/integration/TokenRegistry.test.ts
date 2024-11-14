@@ -47,24 +47,23 @@ describe('TokenRegistry', () => {
         db: Number(redisDb),
         tls: redisTls === 'true' ? {} : undefined,
       },
-      jobs: [],
     });
 
     const shibaToken = await tokenRegistry.getToken(
-      NetworkId.ethereum,
-      '0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce'
+      '0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce',
+      NetworkId.ethereum
     );
 
     const jupToken = await tokenRegistry.getToken(
-      NetworkId.solana,
-      'JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN'
+      'JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN',
+      NetworkId.solana
     );
 
     // Expect the function to throw an error
     await expect(
       tokenRegistry.getToken(
-        NetworkId.ethereum,
-        '1112223334445555666777888uuuuuuuuuuuuuuuuuu'
+        '1112223334445555666777888uuuuuuuuuuuuuuuuuu',
+        NetworkId.ethereum
       )
     ).rejects.toThrow();
 

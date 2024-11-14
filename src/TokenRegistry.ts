@@ -8,7 +8,6 @@ import {
 } from '@sonarwatch/portfolio-core';
 import { Logger } from './Logger';
 import Fetcher from './Fetcher';
-import { Job } from './Job';
 import { Token } from './types';
 import { TtlMap } from './TtlMap';
 import { defaultTransformToken } from './helpers/misc';
@@ -17,13 +16,12 @@ import tokenSchema from './tokenSchema';
 // Prepare AJV
 const ajv = new Ajv();
 addFormats(ajv);
-const validateToken = ajv.compile(tokenSchema);
+const ajvToken = ajv.compile(tokenSchema);
 
 export type TokenRegistryConfig = {
   logger?: Logger;
   redisOptions: RedisOptions;
   fetchers: Partial<Record<NetworkIdType, Fetcher>>;
-  jobs: Job[];
   redisTtlMs?: number;
   memoryTtlMs?: number;
   transformToken?: (token: Token) => Promise<Token>;
@@ -33,7 +31,6 @@ export class TokenRegistry {
   private logger: Logger | undefined;
   private redisClient: Redis;
   private fetchers: Partial<Record<NetworkIdType, Fetcher>>;
-  private jobs: Job[];
   private redisTtl: number;
   private memoryTtl: number;
   private ttlMap: TtlMap<string, Token | null>;
@@ -42,7 +39,6 @@ export class TokenRegistry {
   constructor(config: TokenRegistryConfig) {
     this.logger = config.logger;
     this.fetchers = config.fetchers;
-    this.jobs = config.jobs;
     this.transformToken = config.transformToken || defaultTransformToken;
 
     this.redisTtl = config.redisTtlMs
@@ -63,12 +59,25 @@ export class TokenRegistry {
     });
   }
 
-  async getToken(
-    networkId: NetworkIdType,
-    address: string
-  ): Promise<Token | null> {
+  static getKey(address: string, networkId: NetworkIdType) {
     const uniTokAddress = uniformTokenAddress(address, networkId);
-    const key = `token:${networkId}:${uniTokAddress}`;
+    return `token:${networkId}:${uniTokAddress}`;
+  }
+
+  public async addToken(
+    address: string,
+    networkId: NetworkIdType,
+    token: Token | null
+  ): Promise<void> {
+    const vToken = await this.validateToken(token);
+    await this.saveToken(address, networkId, vToken);
+  }
+
+  public async getToken(
+    address: string,
+    networkId: NetworkIdType
+  ): Promise<Token | null> {
+    const key = TokenRegistry.getKey(address, networkId);
 
     // Check ttlMap
     const memoryToken = await this.ttlMap.get(key);
@@ -79,9 +88,8 @@ export class TokenRegistry {
     if (redisToken !== null) return JSON.parse(redisToken) as Token | null;
 
     // Fetch if not in cache
-    const token = await this.fetch(networkId, uniTokAddress);
-    this.ttlMap.set(key, token);
-    await this.redisClient.set(key, JSON.stringify(token), 'EX', this.redisTtl);
+    const token = await this.fetch(networkId, address);
+    await this.saveToken(address, networkId, token);
     return token;
   }
 
@@ -91,14 +99,33 @@ export class TokenRegistry {
   ): Promise<Token | null> {
     if (!this.fetchers[networkId])
       throw new Error(`Fetcher network is not configured: ${networkId}`);
-    let token = await this.fetchers[networkId].fetch(address);
-    if (token) token = await this.transformToken(token);
-    const valid = validateToken(token);
-    if (!valid) token = null;
-    return token;
+
+    const uniTokAddress = uniformTokenAddress(address, networkId);
+    const token = await this.fetchers[networkId].fetch(uniTokAddress);
+    return this.validateToken(token);
   }
 
-  async disconnect(): Promise<void> {
+  private async validateToken(token: Token | null): Promise<Token | null> {
+    if (token === null) return null;
+
+    const tToken = await this.transformToken(token);
+    const valid = ajvToken(tToken);
+    if (!valid) return null;
+
+    return tToken;
+  }
+
+  private async saveToken(
+    address: string,
+    networkId: NetworkIdType,
+    token: Token | null
+  ): Promise<void> {
+    const key = TokenRegistry.getKey(address, networkId);
+    this.ttlMap.set(key, token);
+    await this.redisClient.set(key, JSON.stringify(token), 'EX', this.redisTtl);
+  }
+
+  public async disconnect(): Promise<void> {
     try {
       this.ttlMap.stopCleanup();
       await this.redisClient.quit();

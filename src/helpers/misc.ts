@@ -5,10 +5,7 @@ import {
 } from '@sonarwatch/portfolio-core';
 import Fetcher from '../Fetcher';
 import { EvmFetcher, SolanaFetcher } from '../fetchers';
-import { Job } from '../Job';
-import { jupiterJob } from '../jobs';
 import { Token } from '../types';
-import getCoingeckoJob from '../jobs/coingeckoJob';
 import SuiFetcher from '../fetchers/sui';
 import AptosFetcher from '../fetchers/aptos';
 
@@ -26,6 +23,12 @@ export type GetDefaultFetchersConfig = {
     rpc: string;
   };
 };
+
+export async function sleep(ms = 100) {
+  return new Promise((r) => {
+    setTimeout(r, ms);
+  });
+}
 
 export async function defaultTransformToken(token: Token): Promise<Token> {
   const name = token.name
@@ -52,10 +55,6 @@ export async function defaultTransformToken(token: Token): Promise<Token> {
   };
 
   return nToken;
-}
-
-export function getDefaultJobs(): Job[] {
-  return [getCoingeckoJob(NetworkId.ethereum), jupiterJob];
 }
 
 export function getDefaultFetchers(
