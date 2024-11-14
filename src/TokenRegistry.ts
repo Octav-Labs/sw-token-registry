@@ -10,8 +10,8 @@ import { Logger } from './Logger';
 import Fetcher from './Fetcher';
 import { Token } from './types';
 import { TtlMap } from './TtlMap';
-import { defaultTransformToken } from './helpers/misc';
 import tokenSchema from './tokenSchema';
+import { defaultTransformToken } from './helpers/defaultTransformToken';
 
 // Prepare AJV
 const ajv = new Ajv();

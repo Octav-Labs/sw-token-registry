@@ -1,6 +1,6 @@
 import { NetworkId } from '@sonarwatch/portfolio-core';
 import { TokenRegistry } from '../../src/TokenRegistry';
-import { getDefaultFetchers } from '../../src/helpers/misc';
+import { getDefaultFetchers } from '../../src/helpers/getDefaultFetchers';
 
 describe('TokenRegistry', () => {
   it('sould be instantiable', async () => {

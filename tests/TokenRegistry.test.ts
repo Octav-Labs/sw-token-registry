@@ -1,5 +1,5 @@
 import { TokenRegistry } from '../src/TokenRegistry';
-import { getDefaultFetchers } from '../src/helpers/misc';
+import { getDefaultFetchers } from '../src/helpers/getDefaultFetchers';
 
 describe('TokenRegistry', () => {
   it('sould be instantiable', async () => {
@@ -12,7 +12,6 @@ describe('TokenRegistry', () => {
     const tokenRegistry = new TokenRegistry({
       fetchers,
       redisOptions: {},
-      jobs: [],
     });
     await tokenRegistry.disconnect();
     expect(tokenRegistry).toBeDefined();

@@ -1,71 +1,9 @@
-import {
-  NetworkId,
-  NetworkIdType,
-  uniformTokenAddress,
-} from '@sonarwatch/portfolio-core';
-import Fetcher from '../Fetcher';
-import { EvmFetcher, SolanaFetcher } from '../fetchers';
-import { Token } from '../types';
-import SuiFetcher from '../fetchers/sui';
-import AptosFetcher from '../fetchers/aptos';
-
-export type GetDefaultFetchersConfig = {
-  solana: {
-    dasUrl: string;
-  };
-  ethereum: {
-    rpc: string;
-  };
-  sui: {
-    rpc: string;
-  };
-  aptos: {
-    rpc: string;
-  };
-};
+import { NetworkIdType } from '@sonarwatch/portfolio-core';
 
 export async function sleep(ms = 100) {
   return new Promise((r) => {
     setTimeout(r, ms);
   });
-}
-
-export async function defaultTransformToken(token: Token): Promise<Token> {
-  const name = token.name
-    .normalize('NFKC')
-    .replaceAll('\\', '')
-    .replaceAll('\t', '')
-    .replaceAll('\n', '')
-    .replace(/[\uFE70-\uFEFF]/g, '')
-    .replace(/[\uFFF0-\uFFFF]/g, '')
-    .trim()
-    .substring(0, 64);
-
-  const symbol = token.symbol
-    .replace(/[^\x20-\x7F]/g, '')
-    .trim()
-    .replaceAll(' ', '')
-    .substring(0, 20);
-
-  const nToken: Token = {
-    ...token,
-    symbol,
-    name,
-    address: uniformTokenAddress(token.address, token.networkId),
-  };
-
-  return nToken;
-}
-
-export function getDefaultFetchers(
-  config: GetDefaultFetchersConfig
-): Partial<Record<NetworkIdType, Fetcher>> {
-  return {
-    solana: new SolanaFetcher(config.solana.dasUrl),
-    ethereum: new EvmFetcher(config.ethereum.rpc, NetworkId.ethereum),
-    sui: new SuiFetcher(config.sui.rpc),
-    aptos: new AptosFetcher(config.aptos.rpc),
-  };
 }
 
 export function stringToBoolean(str: string): boolean {
@@ -96,4 +34,20 @@ export function coingeckoPlatformFromNetworkId(networkId: NetworkIdType) {
   const platform = platforms[networkId];
   if (!platform) throw new Error('Platform is missing');
   return platform;
+}
+
+export default async function runInBatch<T>(
+  functionsToRun: (() => Promise<T>)[],
+  batchSize = 100
+): Promise<PromiseSettledResult<T>[]> {
+  const results: PromiseSettledResult<T>[] = [];
+
+  while (functionsToRun.length !== 0) {
+    const currFunctionsToRun = functionsToRun.splice(0, batchSize);
+    const promises = currFunctionsToRun.map((fToRun) => fToRun());
+    const currResults = await Promise.allSettled(promises);
+    results.push(...currResults);
+  }
+
+  return results;
 }
