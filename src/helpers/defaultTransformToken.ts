@@ -7,6 +7,7 @@ export async function defaultTransformToken(token: Token): Promise<Token> {
     .replaceAll('\\', '')
     .replaceAll('\t', '')
     .replaceAll('\n', '')
+    .replaceAll('\r', '')
     .replace(/[\uFE70-\uFEFF]/g, '')
     .replace(/[\uFFF0-\uFFFF]/g, '')
     .trim()
