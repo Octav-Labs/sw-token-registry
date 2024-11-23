@@ -12,6 +12,7 @@ import { Token } from './types';
 import { TtlMap } from './TtlMap';
 import tokenSchema from './tokenSchema';
 import { defaultTransformToken } from './helpers/defaultTransformToken';
+import runInBatch from './helpers/misc';
 
 // Prepare AJV
 const ajv = new Ajv();
@@ -91,6 +92,24 @@ export class TokenRegistry {
     const token = await this.fetch(networkId, address);
     await this.saveToken(address, networkId, token);
     return token;
+  }
+
+  public async getTokens(
+    items: { address: string; networkId: NetworkIdType }[]
+  ): Promise<(Token | null)[]> {
+    const res = await runInBatch(
+      items.map((i) => () => this.getToken(i.address, i.networkId)),
+      20
+    );
+    return res.map((r, i) => {
+      if (r.status === 'rejected') {
+        this.logger?.warn(
+          `Failed to get token: ${items[i].address} |${items[i].networkId}  `
+        );
+        return null;
+      }
+      return r.value;
+    });
   }
 
   private async fetch(
