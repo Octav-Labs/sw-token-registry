@@ -20,7 +20,7 @@
     "rename:cjs": "mv dist/cjs/index.js dist/cjs/index.cjs",
     "build:cjs": "tsc -p tsconfig.cjs.json",
     "build:esm": "tsc -p tsconfig.json",
-    "build": "npm run build:cjs && npm run rename:cjs && npm run build:esm",
+    "build": "node build.mjs",
     "test": "jest --testPathIgnorePatterns=tests/integration/",
     "test:integration": "jest tests/integration/",
     "lint": "eslint 'src/**/*.ts' 'tests/**/*.ts'",
