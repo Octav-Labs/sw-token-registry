@@ -104,7 +104,7 @@ export class TokenRegistry {
     return res.map((r, i) => {
       if (r.status === 'rejected') {
         this.logger?.warn(
-          `Failed to get token: ${items[i].address} |${items[i].networkId}  `
+          `Failed to get token:  ${items[i].networkId} | ${items[i].address}`
         );
         return null;
       }
