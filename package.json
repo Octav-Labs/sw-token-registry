@@ -11,6 +11,7 @@
     "dist"
   ],
   "main": "dist/index.js",
+  "types": "dist/types/index.d.ts",
   "scripts": {
     "build": "tsc",
     "test": "jest --testPathIgnorePatterns=tests/integration/",
