@@ -25,10 +25,6 @@ async function build() {
     outdir: 'dist/cjs',
   });
 
-  // Copy TypeScript declarations to both CJS and ESM directories
-  cpSync('./dist/types', './dist/cjs', { recursive: true });
-  cpSync('./dist/types', './dist/esm', { recursive: true });
-
   console.log('Build complete!');
 }
 
