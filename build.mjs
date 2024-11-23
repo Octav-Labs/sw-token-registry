@@ -32,4 +32,7 @@ async function build() {
   console.log('Build complete!');
 }
 
-build().catch(() => process.exit(1));
+build().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});
