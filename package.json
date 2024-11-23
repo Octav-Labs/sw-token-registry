@@ -10,11 +10,10 @@
   "files": [
     "dist"
   ],
-  "main": "dist/cjs/index.cjs",
+  "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
-  "types": "dist/types/index.d.ts",
   "exports": {
-    "require": "./dist/cjs/index.cjs",
+    "require": "./dist/cjs/index.js",
     "import": "./dist/esm/index.js"
   },
   "scripts": {
@@ -37,6 +36,7 @@
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",
     "dotenv": "^16.4.5",
+    "esbuild": "0.24.0",
     "eslint": "^8.57.1",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-airbnb-typescript": "^18.0.0",
