@@ -12,7 +12,7 @@
   ],
   "main": "dist/index.cjs",
   "module": "dist/esm/index.js",
-  "types": "dist/types/index.d.ts",
+  "types": "dist/index.d.ts",
   "scripts": {
     "rename:cjs": "mv dist/cjs/index.js dist/cjs/index.cjs",
     "build:cjs": "tsc -p tsconfig.cjs.json",
