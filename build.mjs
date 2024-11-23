@@ -1,3 +1,4 @@
+import { execSync } from 'child_process';
 import esbuild from 'esbuild';
 import { cpSync } from 'fs';
 
@@ -11,6 +12,9 @@ const sharedConfig = {
 };
 
 async function build() {
+  console.log('Generating type declarations...');
+  execSync('tsc --emitDeclarationOnly');
+
   // Build for ESM
   await esbuild.build({
     ...sharedConfig,
