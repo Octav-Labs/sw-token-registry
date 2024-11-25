@@ -3,7 +3,7 @@
     "target": "ES2023",
     "module": "ES2022",
     "moduleResolution": "node",
-    "outDir": "./dist/esm",
+    "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,

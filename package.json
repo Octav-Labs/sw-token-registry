@@ -14,9 +14,6 @@
   "module": "dist/esm/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "rename:cjs": "mv dist/cjs/index.js dist/cjs/index.cjs",
-    "build:cjs": "tsc -p tsconfig.cjs.json",
-    "build:esm": "tsc -p tsconfig.json",
     "build": "tsup src/index.ts --format esm,cjs --dts",
     "test": "jest --testPathIgnorePatterns=tests/integration/",
     "test:integration": "jest tests/integration/",
@@ -33,7 +30,6 @@
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",
     "dotenv": "^16.4.5",
-    "esbuild": "0.24.0",
     "eslint": "^8.57.1",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-airbnb-typescript": "^18.0.0",
