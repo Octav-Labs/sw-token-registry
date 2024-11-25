@@ -26,7 +26,7 @@
     "no-continue": "off",
     "no-underscore-dangle": ["error", { "allowAfterThis": true }],
     "class-methods-use-this": [
-      "on",
+      "error",
       { "exceptMethods": ["uniformTokenAddress"] }
     ]
   }
