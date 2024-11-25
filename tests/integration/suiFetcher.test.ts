@@ -17,14 +17,14 @@ describe('suiFetcher', () => {
   });
 
   it('should return null if address is valid but not a token', async () => {
-    const address =
-      '0x5f3a18cdfd7ef0527a65ba5c07dbe0efe276507d4d1a4d1bebe87f5d40df6cf6::boby::BOBY';
-    const tokenInfo = await fetcher.fetch(address);
+    const tokenInfo = await fetcher.fetch(
+      '0x5f3a18cdfd7ef0527a65ba5c07dbe0efe276507d4d1a4d1bebe87f5d40df6cf6::boby::BOBY'
+    );
     expect(tokenInfo).toBe(null);
 
-    const address2 =
-      '0x5f3a18cdfd7ef0527a65ba5c07dbe0efe276507d4d1a4d1bebe87f5d40df6cf5::boby::BOBY';
-    const tokenInfo2 = await fetcher.fetch(address2);
+    const tokenInfo2 = await fetcher.fetch(
+      '0x5f3a18cdfd7ef0527a65ba5c07dbe0efe276507d4d1a4d1bebe87f5d40df6cf5::boby::BOBY'
+    );
     expect(tokenInfo2).toBe(null);
   });
 
@@ -36,5 +36,15 @@ describe('suiFetcher', () => {
     expect(tokenInfo?.symbol).toBe('BOB');
     expect(tokenInfo?.chainId).toBe(1);
     expect(tokenInfo?.decimals).toBe(6);
+  });
+
+  it('should return SCALLOP AF SUI token', async () => {
+    const address =
+      '0x671b1fa2a124f5be8bdae8b91ee711462c5d9e31bda232e70fd9607b523c88::scallop_af_sui::SCALLOP_AF_SUI';
+    const tokenInfo = await fetcher.fetch(address);
+    expect(tokenInfo).not.toBeNull();
+    expect(tokenInfo?.symbol).toBe('sAfSUI');
+    expect(tokenInfo?.chainId).toBe(1);
+    expect(tokenInfo?.decimals).toBe(9);
   });
 });
