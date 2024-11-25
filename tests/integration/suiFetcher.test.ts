@@ -39,12 +39,18 @@ describe('suiFetcher', () => {
   });
 
   it('should return SCALLOP AF SUI token', async () => {
-    const address =
-      '0x671b1fa2a124f5be8bdae8b91ee711462c5d9e31bda232e70fd9607b523c88::scallop_af_sui::SCALLOP_AF_SUI';
-    const tokenInfo = await fetcher.fetch(address);
+    const tokenInfo = await fetcher.fetch(
+      '0x671b1fa2a124f5be8bdae8b91ee711462c5d9e31bda232e70fd9607b523c88::scallop_af_sui::SCALLOP_AF_SUI'
+    );
     expect(tokenInfo).not.toBeNull();
     expect(tokenInfo?.symbol).toBe('sAfSUI');
     expect(tokenInfo?.chainId).toBe(1);
     expect(tokenInfo?.decimals).toBe(9);
+
+    const tokenInfo2 = await fetcher.fetch(
+      '671b1fa2a124f5be8bdae8b91ee711462c5d9e31bda232e70fd9607b523c88::scallop_af_sui::SCALLOP_AF_SUI'
+    );
+    expect(tokenInfo2).not.toBeNull();
+    expect(tokenInfo2?.symbol).toBe('sAfSUI');
   });
 });
