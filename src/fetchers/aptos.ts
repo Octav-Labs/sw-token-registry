@@ -1,5 +1,9 @@
 import { Aptos, AptosConfig, Network } from '@aptos-labs/ts-sdk';
-import { isMoveAddress, NetworkId } from '@sonarwatch/portfolio-core';
+import {
+  isMoveAddress,
+  NetworkId,
+  uniformMoveTokenAddress,
+} from '@sonarwatch/portfolio-core';
 import Fetcher from '../Fetcher';
 import { Token } from '../types';
 import urlToUrlWithHeaders from '../helpers/urlToUrlWithHeaders';
@@ -35,7 +39,11 @@ export default class AptosFetcher extends Fetcher {
     this.client = new Aptos(config);
   }
 
-  async fetch(address: string): Promise<Token | null> {
+  protected uniformTokenAddress(address: string): string {
+    return uniformMoveTokenAddress(address);
+  }
+
+  async _fetch(address: string): Promise<Token | null> {
     const isFungible = address.split('::').length === 1;
 
     let coinMetadata: CoinMetadata | void;

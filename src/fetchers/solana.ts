@@ -1,5 +1,8 @@
 import axios, { AxiosResponse } from 'axios';
-import { NetworkId } from '@sonarwatch/portfolio-core';
+import {
+  NetworkId,
+  uniformSolanaTokenAddress,
+} from '@sonarwatch/portfolio-core';
 import Fetcher from '../Fetcher';
 import { Token } from '../types';
 
@@ -30,8 +33,11 @@ export default class SolanaFetcher extends Fetcher {
     super();
     this.dasUrl = dasUrl;
   }
+  protected uniformTokenAddress(address: string): string {
+    return uniformSolanaTokenAddress(address);
+  }
 
-  async fetch(address: string): Promise<Token | null> {
+  async _fetch(address: string): Promise<Token | null> {
     const res: AxiosResponse<DasGetAsset> = await axios.post(this.dasUrl, {
       jsonrpc: '2.0',
       id: 'text',

@@ -2,6 +2,7 @@ import {
   EvmNetworkIdType,
   getNetworkById,
   Network,
+  uniformEvmTokenAddress,
 } from '@sonarwatch/portfolio-core';
 import { Chain, createPublicClient, erc20Abi, http, PublicClient } from 'viem';
 import { avalanche, bsc, mainnet, polygon } from 'viem/chains';
@@ -38,7 +39,11 @@ export default class EvmFetcher extends Fetcher {
     this.network = getNetworkById(networkId);
   }
 
-  async fetch(address: string): Promise<Token | null> {
+  protected uniformTokenAddress(address: string): string {
+    return uniformEvmTokenAddress(address);
+  }
+
+  async _fetch(address: string): Promise<Token | null> {
     const contracts = [
       {
         abi: erc20Abi,

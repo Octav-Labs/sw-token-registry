@@ -2,7 +2,7 @@ import {
   SuiClient as MystenSuiClient,
   SuiHTTPTransport,
 } from '@mysten/sui/client';
-import { NetworkId } from '@sonarwatch/portfolio-core';
+import { NetworkId, uniformMoveTokenAddress } from '@sonarwatch/portfolio-core';
 import Fetcher from '../Fetcher';
 import { Token } from '../types';
 
@@ -21,10 +21,15 @@ export default class SuiFetcher extends Fetcher {
     });
   }
 
-  async fetch(address: string): Promise<Token | null> {
+  protected uniformTokenAddress(address: string): string {
+    return uniformMoveTokenAddress(address);
+  }
+
+  async _fetch(address: string): Promise<Token | null> {
     const res = await this.client
       .getCoinMetadata({ coinType: address })
       .catch((e) => {
+        console.log('e:', e);
         if (e.code === -32602 || e.type === 'InvalidParams') {
           return null;
         }
