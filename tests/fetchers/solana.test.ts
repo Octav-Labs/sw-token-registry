@@ -71,7 +71,7 @@ describe('SolanaFetcher', () => {
   });
 
   it('should throw an error if axios.post fails', async () => {
-    const address = 'sample-address';
+    const address = 'sampLe1111111111111111111111111111111111111';
     mockedAxios.post.mockRejectedValueOnce(new Error('Network error'));
     await expect(fetcher.fetch(address)).rejects.toThrow('Network error');
   });
