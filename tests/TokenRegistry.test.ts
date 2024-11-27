@@ -11,7 +11,9 @@ describe('TokenRegistry', () => {
     });
     const tokenRegistry = new TokenRegistry({
       fetchers,
-      redisOptions: {},
+      redisOptions: {
+        lazyConnect: true,
+      },
     });
     await tokenRegistry.disconnect();
     expect(tokenRegistry).toBeDefined();
