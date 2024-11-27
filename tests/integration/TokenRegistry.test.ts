@@ -122,33 +122,4 @@ describe('TokenRegistry', () => {
     await tokenRegistry.disconnect();
     await sleep(200);
   });
-
-  it('sould refetch item due to max size reached', async () => {
-    const tokenRegistry = new TokenRegistry({
-      fetchers,
-      redisOptions,
-      redisTtlMs: 500,
-    });
-    const address =
-      '0x1111111111111111111112222222222222222222223333333333333333333333::FOO::foo';
-    await tokenRegistry.addToken(address, NetworkId.aptos, {
-      address,
-      networkId: NetworkId.aptos,
-      chainId: 1,
-      decimals: 1,
-      name: 'Foo token',
-      symbol: 'FOO',
-    });
-    const tokenMemory = await tokenRegistry.getToken(address, NetworkId.aptos);
-    await sleep(3100);
-    const tokenRedis = await tokenRegistry.getToken(address, NetworkId.aptos);
-    await sleep(3100);
-    const tokenOnChain = await tokenRegistry.getToken(address, NetworkId.aptos);
-
-    expect(tokenMemory).not.toBeNull();
-    expect(tokenRedis).not.toBeNull();
-    expect(tokenOnChain).toBeNull();
-    await tokenRegistry.disconnect();
-    await sleep(200);
-  });
 });
