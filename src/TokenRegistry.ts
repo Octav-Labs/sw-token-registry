@@ -6,13 +6,15 @@ import {
   uniformTokenAddress,
   UniTokenAddress,
 } from '@sonarwatch/portfolio-core';
+import { LRUCache } from 'lru-cache';
 import { Logger } from './Logger';
 import Fetcher from './Fetcher';
-import { Token } from './types';
-import { TtlMap } from './TtlMap';
+import { Milliseconds, Seconds, Token } from './types';
 import tokenSchema from './tokenSchema';
 import { defaultTransformToken } from './helpers/defaultTransformToken';
 import runInBatch from './helpers/misc';
+
+const nullTokenValue = Symbol('nulltoken');
 
 // Prepare AJV
 const ajv = new Ajv();
@@ -23,8 +25,8 @@ export type TokenRegistryConfig = {
   logger?: Logger;
   redisOptions: RedisOptions;
   fetchers: Partial<Record<NetworkIdType, Fetcher>>;
-  redisTtlMs?: number;
-  memoryTtlMs?: number;
+  redisTtlMs?: Milliseconds;
+  memoryTtlMs?: Milliseconds;
   transformToken?: (token: Token) => Promise<Token>;
 };
 
@@ -32,9 +34,9 @@ export class TokenRegistry {
   private logger: Logger | undefined;
   private redisClient: Redis;
   private fetchers: Partial<Record<NetworkIdType, Fetcher>>;
-  private redisTtl: number;
-  private memoryTtl: number;
-  private ttlMap: TtlMap<string, Token | null>;
+  private redisTtl: Seconds;
+  private memoryTtl: Seconds;
+  private lruCache: LRUCache<string, Token | typeof nullTokenValue>;
   private transformToken: (token: Token) => Promise<Token>;
 
   constructor(config: TokenRegistryConfig) {
@@ -48,7 +50,10 @@ export class TokenRegistry {
     this.memoryTtl = config.memoryTtlMs
       ? Math.round(config.memoryTtlMs / 1000)
       : 3600;
-    this.ttlMap = new TtlMap(this.memoryTtl);
+    this.lruCache = new LRUCache({
+      ttl: this.memoryTtl * 1000,
+      max: 500000,
+    });
 
     // Redis
     this.redisClient = new Redis(config.redisOptions);
@@ -63,6 +68,15 @@ export class TokenRegistry {
   static getKey(address: string, networkId: NetworkIdType) {
     const uniTokAddress = uniformTokenAddress(address, networkId);
     return `token:${networkId}:${uniTokAddress}`;
+  }
+
+  static getAddressFromKey(key: string) {
+    const splits = key.split(':');
+    if (splits.length < 3)
+      throw new Error(`Can not retieve address from key: ${key}`);
+    const networkId = splits[1];
+    const address = splits.slice(2).join(':');
+    return { address, networkId };
   }
 
   public async addToken(
@@ -81,8 +95,9 @@ export class TokenRegistry {
     const key = TokenRegistry.getKey(address, networkId);
 
     // Check ttlMap
-    const memoryToken = await this.ttlMap.get(key);
-    if (memoryToken !== undefined) return memoryToken;
+    const memoryToken = await this.lruCache.get(key);
+    if (memoryToken !== undefined)
+      return memoryToken === nullTokenValue ? null : memoryToken;
 
     // Check Redis cache first
     const redisToken = await this.redisClient.get(key);
@@ -140,13 +155,12 @@ export class TokenRegistry {
     token: Token | null
   ): Promise<void> {
     const key = TokenRegistry.getKey(address, networkId);
-    this.ttlMap.set(key, token);
+    this.lruCache.set(key, token === null ? nullTokenValue : token);
     await this.redisClient.set(key, JSON.stringify(token), 'EX', this.redisTtl);
   }
 
   public async disconnect(): Promise<void> {
     try {
-      this.ttlMap.stopCleanup();
       await this.redisClient.quit();
     } catch (error) {
       this.logger?.error('TokenRegistry error disconnecting from Redis', error);
