@@ -14,6 +14,8 @@ describe('TokenRegistry', () => {
       redisOptions: {
         lazyConnect: true,
       },
+      memoryTtlMs: 1000,
+      redisTtlMs: 2000,
     });
     await tokenRegistry.disconnect();
     expect(tokenRegistry).toBeDefined();
