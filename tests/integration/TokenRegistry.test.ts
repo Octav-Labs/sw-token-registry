@@ -129,8 +129,8 @@ describe('TokenRegistry', () => {
     const tokenRegistry = new TokenRegistry({
       fetchers,
       redisOptions,
-      memoryTtlMs: 3000,
-      redisTtlMs: 6000,
+      memoryTtlMs: 2000,
+      redisTtlMs: 2000,
     });
     const networkId = NetworkId.solana;
 
@@ -150,6 +150,10 @@ describe('TokenRegistry', () => {
         symbol: `T${i}`,
       };
     }
+
+    const res0 = await tokenRegistry.getTokensPaginate(0, 2);
+    expect(res0.values.length).toBe(0);
+
     await tokenRegistry.addToken(address1, networkId, getToken(address1, 1));
     await tokenRegistry.addToken(address2, networkId, getToken(address2, 2));
     await tokenRegistry.addToken(address3, networkId, getToken(address3, 3));
