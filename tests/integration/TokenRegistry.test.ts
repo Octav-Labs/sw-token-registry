@@ -124,4 +124,44 @@ describe('TokenRegistry', () => {
     await tokenRegistry.disconnect();
     await sleep(200);
   });
+
+  it('sould paginate', async () => {
+    const tokenRegistry = new TokenRegistry({
+      fetchers,
+      redisOptions,
+      memoryTtlMs: 3000,
+      redisTtlMs: 6000,
+    });
+    const networkId = NetworkId.solana;
+
+    const address1 = 't111111111111111111111111111111111111111111';
+    const address2 = 't222222222222222222222222222222222222222222';
+    const address3 = 't333333333333333333333333333333333333333333';
+    const address4 = 't444444444444444444444444444444444444444444';
+    const address5 = 't555555555555555555555555555555555555555555';
+    const address6 = 't666666666666666666666666666666666666666666';
+    function getToken(address: string, i: number) {
+      return {
+        address,
+        networkId,
+        chainId: 1,
+        decimals: 6,
+        name: `Token#${i}`,
+        symbol: `T${i}`,
+      };
+    }
+    await tokenRegistry.addToken(address1, networkId, getToken(address1, 1));
+    await tokenRegistry.addToken(address2, networkId, getToken(address2, 2));
+    await tokenRegistry.addToken(address3, networkId, getToken(address3, 3));
+    await tokenRegistry.addToken(address4, networkId, getToken(address4, 4));
+    await tokenRegistry.addToken(address5, networkId, getToken(address5, 5));
+    await tokenRegistry.addToken(address6, networkId, getToken(address6, 6));
+
+    const res1 = await tokenRegistry.getTokensPaginate(0, 2);
+    const res2 = await tokenRegistry.getTokensPaginate(res1.nextCursor, 2);
+
+    expect(res1.values.length + res2.values.length).toBeLessThan(10);
+    await tokenRegistry.disconnect();
+    await sleep(50);
+  });
 });

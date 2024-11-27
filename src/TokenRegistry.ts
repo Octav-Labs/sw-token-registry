@@ -14,6 +14,7 @@ import tokenSchema from './tokenSchema';
 import { defaultTransformToken } from './helpers/defaultTransformToken';
 import runInBatch from './helpers/misc';
 
+const PAGINATE_MAX_COUNT = 500;
 const nullTokenValue = Symbol('nulltoken');
 
 // Prepare AJV
@@ -125,6 +126,27 @@ export class TokenRegistry {
       }
       return r.value;
     });
+  }
+
+  public async getTokensPaginate(cursor: number, count: number = 10) {
+    if (count > PAGINATE_MAX_COUNT)
+      throw new Error(`Paginate max count is ${PAGINATE_MAX_COUNT}`);
+    if (cursor < 0) throw new Error('Cursor cannot be negative');
+    if (count < 1) throw new Error('Count should be at least 1');
+
+    const [nextCursorRaw, keys] = await this.redisClient.scan(
+      cursor,
+      'COUNT',
+      count
+    );
+    const nextCursor = nextCursorRaw === '0' ? -1 : Number(nextCursorRaw);
+
+    const values = keys.length > 0 ? await this.redisClient.mget(...keys) : [];
+    return {
+      nextCursor,
+      values,
+      hasMore: nextCursor !== -1,
+    };
   }
 
   private async fetch(
