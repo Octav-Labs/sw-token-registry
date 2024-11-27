@@ -5,3 +5,6 @@ export type Token = UniTokenInfo & {
 };
 
 export type Job = () => Promise<Token[]>;
+
+export type Milliseconds = number;
+export type Seconds = number;
