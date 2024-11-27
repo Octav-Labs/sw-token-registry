@@ -29,7 +29,6 @@ export default class SuiFetcher extends Fetcher {
     const res = await this.client
       .getCoinMetadata({ coinType: address })
       .catch((e) => {
-        console.log('e:', e);
         if (e.code === -32602 || e.type === 'InvalidParams') {
           return null;
         }
