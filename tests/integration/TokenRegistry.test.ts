@@ -91,6 +91,8 @@ describe('TokenRegistry', () => {
     expect(shibaToken).not.toBeNull();
     expect(jupToken).not.toBeNull();
     expect(tokenRegistry).toBeDefined();
+    await tokenRegistry.disconnect();
+    await sleep(200);
   });
 
   it('sould refetch item due to expiracy', async () => {
