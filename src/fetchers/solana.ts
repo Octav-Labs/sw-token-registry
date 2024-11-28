@@ -11,6 +11,7 @@ type DasGetAsset = {
   result?: {
     token_info?: {
       decimals?: number;
+      symbol?: string;
     };
     content: {
       links?: {
@@ -18,9 +19,9 @@ type DasGetAsset = {
       };
       metadata?: {
         description?: string;
-        name: string;
-        symbol: string;
-        token_standard: string;
+        name?: string;
+        symbol?: string;
+        token_standard?: string;
       };
     };
   };
@@ -48,14 +49,22 @@ export default class SolanaFetcher extends Fetcher {
     if (res.data.error) return null;
     if (!res.data.result) return null;
     if (res.data.result.token_info?.decimals === undefined) return null;
-    if (!res.data.result.content?.metadata) return null;
+
+    const symbol =
+      res.data.result.content.metadata?.symbol ||
+      res.data.result.token_info?.symbol ||
+      res.data.result.content.metadata?.name;
+    const name =
+      res.data.result.content.metadata?.name ||
+      res.data.result.token_info?.symbol;
+    if (!symbol || !name) return null;
 
     return {
       address,
       chainId: 101,
       decimals: res.data.result.token_info.decimals,
-      name: res.data.result.content?.metadata.name,
-      symbol: res.data.result.content.metadata.symbol,
+      name,
+      symbol,
       logoURI: res.data.result.content.links?.image,
       networkId: NetworkId.solana,
     };
