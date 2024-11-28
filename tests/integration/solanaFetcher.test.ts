@@ -30,4 +30,13 @@ describe('SolanaFetcher', () => {
     expect(tokenInfo?.chainId).toBe(101);
     expect(tokenInfo?.decimals).toBe(6);
   });
+
+  it('should return SONAR token', async () => {
+    const address = 'sonarX4VtVkQemriJeLm6CKeW3GDMyiBnnAEMw1MRAE';
+    const tokenInfo = await fetcher.fetch(address);
+    expect(tokenInfo).not.toBeNull();
+    expect(tokenInfo?.symbol).toBe('SONAR');
+    expect(tokenInfo?.chainId).toBe(101);
+    expect(tokenInfo?.decimals).toBe(9);
+  });
 });
