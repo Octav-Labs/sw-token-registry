@@ -168,4 +168,21 @@ describe('TokenRegistry', () => {
     await tokenRegistry.disconnect();
     await sleep(50);
   });
+
+  it('should return HASUI token', async () => {
+    const tokenRegistry = new TokenRegistry({
+      fetchers,
+      redisOptions,
+      memoryTtlMs: 1000,
+      redisTtlMs: 3000,
+    });
+
+    const address =
+      '0xbde4ba4c2e274a60ce15c1cfff9e5c42e41654ac8b6d906a57efa4bd3c29f47d::hasui::HASUI';
+    const tokenInfo = await tokenRegistry.getToken(address, NetworkId.sui);
+    expect(tokenInfo).not.toBeNull();
+    expect(tokenInfo?.symbol).toBe('haSUI');
+    expect(tokenInfo?.chainId).toBe(1);
+    expect(tokenInfo?.decimals).toBe(9);
+  });
 });

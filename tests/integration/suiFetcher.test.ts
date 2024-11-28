@@ -38,6 +38,16 @@ describe('suiFetcher', () => {
     expect(tokenInfo?.decimals).toBe(6);
   });
 
+  it('should return HASUI token', async () => {
+    const address =
+      '0xbde4ba4c2e274a60ce15c1cfff9e5c42e41654ac8b6d906a57efa4bd3c29f47d::hasui::HASUI';
+    const tokenInfo = await fetcher.fetch(address);
+    expect(tokenInfo).not.toBeNull();
+    expect(tokenInfo?.symbol).toBe('haSUI');
+    expect(tokenInfo?.chainId).toBe(1);
+    expect(tokenInfo?.decimals).toBe(9);
+  });
+
   it('should return SCALLOP AF SUI token', async () => {
     const tokenInfo = await fetcher.fetch(
       '0x671b1fa2a124f5be8bdae8b91ee711462c5d9e31bda232e70fd9607b523c88::scallop_af_sui::SCALLOP_AF_SUI'
