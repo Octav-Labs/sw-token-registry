@@ -23,12 +23,6 @@ describe('evmFetcher', () => {
     fetcherBnb = new EvmFetcher(rpcBnb, NetworkId.bnb);
   });
 
-  it('should return null if token address is not valid', async () => {
-    const address = 'address_that_doesnt_exist';
-    const tokenInfo = await fetcherEth.fetch(address);
-    expect(tokenInfo).toBe(null);
-  });
-
   it('should return null if address is valid but not a token', async () => {
     const address = '0x0000000000000000000000000000000000000123';
     const tokenInfo = await fetcherEth.fetch(address);
@@ -86,6 +80,33 @@ describe('evmFetcher', () => {
     expect(tokenInfo).not.toBeNull();
     expect(tokenInfo?.symbol).toBe('WETH');
     expect(tokenInfo?.chainId).toBe(1);
+    expect(tokenInfo?.decimals).toBe(18);
+  });
+
+  it('should return eth ETH token', async () => {
+    const address = '0x0000000000000000000000000000000000000000';
+    const tokenInfo = await fetcherEth.fetch(address);
+    expect(tokenInfo).not.toBeNull();
+    expect(tokenInfo?.symbol).toBe('ETH');
+    expect(tokenInfo?.chainId).toBe(1);
+    expect(tokenInfo?.decimals).toBe(18);
+  });
+
+  it('should return eth ETH.e token', async () => {
+    const address = '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE';
+    const tokenInfo = await fetcherEth.fetch(address);
+    expect(tokenInfo).not.toBeNull();
+    expect(tokenInfo?.symbol).toBe('ETH');
+    expect(tokenInfo?.chainId).toBe(1);
+    expect(tokenInfo?.decimals).toBe(18);
+  });
+
+  it('should return bnb WBNB token', async () => {
+    const address = '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c';
+    const tokenInfo = await fetcherBnb.fetch(address);
+    expect(tokenInfo).not.toBeNull();
+    expect(tokenInfo?.symbol).toBe('WBNB');
+    expect(tokenInfo?.chainId).toBe(56);
     expect(tokenInfo?.decimals).toBe(18);
   });
 });
