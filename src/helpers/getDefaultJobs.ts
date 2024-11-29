@@ -4,12 +4,12 @@ import { Job } from '../types';
 
 export function getDefaultJobs(): Job[] {
   return [
+    jupiterJob,
     getCoingeckoJob(NetworkId.ethereum),
     getCoingeckoJob(NetworkId.bnb),
     getCoingeckoJob(NetworkId.polygon),
     getCoingeckoJob(NetworkId.avalanche),
     getCoingeckoJob(NetworkId.aptos),
     getCoingeckoJob(NetworkId.sui),
-    jupiterJob,
   ];
 }
