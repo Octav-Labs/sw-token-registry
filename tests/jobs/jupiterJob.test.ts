@@ -57,7 +57,7 @@ describe('jupiterJob', () => {
     expect(mockedAxios.get).toHaveBeenCalledWith(
       'https://tokens.jup.ag/tokens',
       {
-        timeout: 180000,
+        timeout: 240000,
       }
     );
   });
@@ -73,7 +73,7 @@ describe('jupiterJob', () => {
     expect(mockedAxios.get).toHaveBeenCalledWith(
       'https://tokens.jup.ag/tokens',
       {
-        timeout: 180000,
+        timeout: 240000,
       }
     );
   });
@@ -89,7 +89,7 @@ describe('jupiterJob', () => {
     expect(mockedAxios.get).toHaveBeenCalledWith(
       'https://tokens.jup.ag/tokens',
       {
-        timeout: 180000,
+        timeout: 240000,
       }
     );
   });
