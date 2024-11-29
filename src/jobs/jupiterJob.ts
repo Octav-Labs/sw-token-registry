@@ -4,7 +4,7 @@ import { Token, Job } from '../types';
 
 async function getJupTokens() {
   const res = await axios.get('https://tokens.jup.ag/tokens', {
-    timeout: 180000,
+    timeout: 240000,
   });
   if (!res || !res.data || !Array.isArray(res.data))
     throw new Error('Failed to fetch jup tokens');
