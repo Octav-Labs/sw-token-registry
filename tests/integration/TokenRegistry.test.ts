@@ -16,6 +16,9 @@ describe('TokenRegistry', () => {
   let aptosRpc: string | undefined;
   let ethRpc: string | undefined;
   let suiRpc: string | undefined;
+  let polygonRpc: string | undefined;
+  let avalancheRpc: string | undefined;
+  let bnbRpc: string | undefined;
   let fetchers: Partial<Record<NetworkIdType, Fetcher>>;
   let redisOptions: RedisOptions;
 
@@ -33,11 +36,18 @@ describe('TokenRegistry', () => {
     aptosRpc = process.env.APTOS_RPC;
     ethRpc = process.env.ETHEREUM_RPC;
     suiRpc = process.env.SUI_RPC;
+    polygonRpc = process.env.POLYGON_RPC;
+    avalancheRpc = process.env.AVALANCHE_RPC;
+    bnbRpc = process.env.BNB_RPC;
+
     if (
       !dasUrl ||
       !aptosRpc ||
       !ethRpc ||
       !suiRpc ||
+      !polygonRpc ||
+      !avalancheRpc ||
+      !bnbRpc ||
       !redisHost ||
       !redisTls ||
       !redisUsername ||
@@ -52,6 +62,9 @@ describe('TokenRegistry', () => {
       ethereum: { rpc: ethRpc },
       sui: { rpc: suiRpc },
       aptos: { rpc: aptosRpc },
+      avalanche: { rpc: avalancheRpc },
+      polygon: { rpc: polygonRpc },
+      bnb: { rpc: bnbRpc },
     });
 
     redisOptions = {

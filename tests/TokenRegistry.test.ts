@@ -8,6 +8,9 @@ describe('TokenRegistry', () => {
       ethereum: { rpc: 'https://foo.com' },
       sui: { rpc: 'https://foo.com' },
       aptos: { rpc: 'https://foo.com' },
+      avalanche: { rpc: 'https://foo.com' },
+      polygon: { rpc: 'https://foo.com' },
+      bnb: { rpc: 'https://foo.com' },
     });
     const tokenRegistry = new TokenRegistry({
       fetchers,
