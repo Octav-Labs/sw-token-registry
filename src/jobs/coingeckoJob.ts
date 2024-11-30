@@ -55,7 +55,7 @@ type GeckoCoinDetails = {
 };
 
 async function getCoingeckoCoinsList() {
-  if (process.env.NODE_ENV !== 'test') await sleep(300000);
+  if (process.env.NODE_ENV !== 'test') await sleep(360000);
   const coinsListRes: AxiosResponse<GeckoCoin[]> = await axios.get(
     'https://api.coingecko.com/api/v3/coins/list',
     {
@@ -65,7 +65,7 @@ async function getCoingeckoCoinsList() {
       timeout: 90000,
     }
   );
-  if (process.env.NODE_ENV !== 'test') await sleep(300000);
+  if (process.env.NODE_ENV !== 'test') await sleep(360000);
   return coinsListRes.data;
 }
 
