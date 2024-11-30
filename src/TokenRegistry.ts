@@ -95,7 +95,7 @@ export class TokenRegistry {
   ): Promise<Token | null> {
     const key = TokenRegistry.getKey(address, networkId);
 
-    // Check ttlMap
+    // Check memory cache
     const memoryToken = await this.lruCache.get(key);
     if (memoryToken !== undefined)
       return memoryToken === nullTokenValue ? null : memoryToken;
