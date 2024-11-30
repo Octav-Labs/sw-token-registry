@@ -55,17 +55,17 @@ type GeckoCoinDetails = {
 };
 
 async function getCoingeckoCoinsList() {
-  if (process.env.NODE_ENV !== 'test') await sleep(240000);
+  if (process.env.NODE_ENV !== 'test') await sleep(300000);
   const coinsListRes: AxiosResponse<GeckoCoin[]> = await axios.get(
     'https://api.coingecko.com/api/v3/coins/list',
     {
       params: {
         include_platform: 'true',
       },
-      timeout: 60000,
+      timeout: 90000,
     }
   );
-  if (process.env.NODE_ENV !== 'test') await sleep(180000);
+  if (process.env.NODE_ENV !== 'test') await sleep(300000);
   return coinsListRes.data;
 }
 
@@ -113,7 +113,7 @@ function getCoingeckoJob(networkId: NetworkIdType) {
           },
         })
         .catch(() => null);
-      await sleep(5000);
+      await sleep(9000);
       if (!coinDetailsRes) continue;
       const coinDetails = coinDetailsRes.data;
       if (!coinDetails.name || !coinDetails.symbol) continue;
