@@ -29,7 +29,7 @@ describe('jupiterJob', () => {
     mockedAxios.get.mockResolvedValue({ data: mockResponseData });
 
     // Call the job function
-    const result = await jupiterJob();
+    const result = await jupiterJob.jobFct();
 
     // Expected output array
     const expectedResult = [
@@ -67,7 +67,9 @@ describe('jupiterJob', () => {
     mockedAxios.get.mockResolvedValue({ data: null });
 
     // Expect the function to throw an error
-    await expect(jupiterJob()).rejects.toThrow('Failed to fetch jup tokens');
+    await expect(jupiterJob.jobFct()).rejects.toThrow(
+      'Failed to fetch jup tokens'
+    );
 
     // Ensure axios was called correctly
     expect(mockedAxios.get).toHaveBeenCalledWith(
@@ -83,7 +85,7 @@ describe('jupiterJob', () => {
     mockedAxios.get.mockRejectedValue(new Error('Network error'));
 
     // Expect the function to throw an error
-    await expect(jupiterJob()).rejects.toThrow('Network error');
+    await expect(jupiterJob.jobFct()).rejects.toThrow('Network error');
 
     // Ensure axios was called correctly
     expect(mockedAxios.get).toHaveBeenCalledWith(

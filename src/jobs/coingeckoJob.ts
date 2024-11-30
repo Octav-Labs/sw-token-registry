@@ -6,7 +6,7 @@ import {
 } from '@sonarwatch/portfolio-core';
 import axios, { AxiosResponse } from 'axios';
 import { sleep } from '../helpers/misc';
-import { Token, Job } from '../types';
+import { Token, JobFct, Job } from '../types';
 import { evmTokensMap } from '../helpers/constants';
 import { TokenRegistry } from '../TokenRegistry';
 
@@ -80,7 +80,7 @@ function getCoingeckoJob(networkId: NetworkIdType) {
   const network = getNetworkById(networkId);
   const { chainId } = network;
 
-  const coingeckoJob: Job = async () => {
+  const jobFct: JobFct = async () => {
     const coinsList = await getCoingeckoCoinsList();
 
     const tokens: Map<string, Token> = new Map();
@@ -132,6 +132,11 @@ function getCoingeckoJob(networkId: NetworkIdType) {
       tokens.set(token.address, token);
     }
     return Array.from(tokens.values());
+  };
+  const coingeckoJob: Job = {
+    id: 'coingecko',
+    jobFct,
+    tags: ['coingecko', networkId],
   };
   return coingeckoJob;
 }

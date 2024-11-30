@@ -6,7 +6,7 @@ describe('coingeckoJob', () => {
 
   it('should fetch and return more than 20 tokens', async () => {
     const coingeckoJobSui = getCoingeckoJob(NetworkId.sui);
-    const result = await coingeckoJobSui();
+    const result = await coingeckoJobSui.jobFct();
 
     // Check that the result is an array and has more than 20 items
     expect(Array.isArray(result)).toBe(true);
