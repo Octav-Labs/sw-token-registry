@@ -81,7 +81,10 @@ function getCoingeckoJob(networkId: NetworkIdType) {
   const { chainId } = network;
 
   const jobFct: JobFct = async () => {
-    const coinsList = await getCoingeckoCoinsList();
+    const coinsList = await getCoingeckoCoinsList().catch(async (e) => {
+      await sleep(600000);
+      throw new Error(e);
+    });
 
     const tokens: Map<string, Token> = new Map();
     for (let i = 0; i < coinsList.length; i += 1) {
