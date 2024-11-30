@@ -116,7 +116,7 @@ function getCoingeckoJob(networkId: NetworkIdType) {
           },
         })
         .catch(() => null);
-      await sleep(9000);
+      await sleep(6000);
       if (!coinDetailsRes) continue;
       const coinDetails = coinDetailsRes.data;
       if (!coinDetails.name || !coinDetails.symbol) continue;
