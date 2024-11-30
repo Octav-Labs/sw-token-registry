@@ -134,7 +134,7 @@ function getCoingeckoJob(networkId: NetworkIdType) {
     return Array.from(tokens.values());
   };
   const coingeckoJob: Job = {
-    id: 'coingecko',
+    id: `coingecko-${networkId}`,
     jobFct,
     tags: ['coingecko', networkId],
   };
