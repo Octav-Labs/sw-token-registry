@@ -6,6 +6,8 @@ import {
 import Fetcher from '../Fetcher';
 import { Token } from '../types';
 import { solToken, wsolToken } from '../helpers/constants';
+import { isImageUrl } from '../helpers/isImageUrl';
+import { solanaTokensMap } from '../helpers/solanaTokens';
 
 type DasGetAsset = {
   error?: unknown;
@@ -18,6 +20,7 @@ type DasGetAsset = {
       links?: {
         image?: string;
       };
+      json_uri?: string;
       metadata?: {
         description?: string;
         name?: string;
@@ -43,6 +46,9 @@ export default class SolanaFetcher extends Fetcher {
     if (address === solToken.address) return solToken;
     if (address === wsolToken.address) return wsolToken;
 
+    const rawToken = solanaTokensMap.get(address);
+    if (rawToken) return rawToken;
+
     const res: AxiosResponse<DasGetAsset> = await axios.post(this.dasUrl, {
       jsonrpc: '2.0',
       id: 'text',
@@ -63,13 +69,19 @@ export default class SolanaFetcher extends Fetcher {
       res.data.result.token_info?.symbol;
     if (!symbol || !name) return null;
 
+    let logoURI = res.data.result.content.links?.image;
+    if (!logoURI) {
+      const isJsonUriAnImg = await isImageUrl(res.data.result.content.json_uri);
+      if (isJsonUriAnImg) logoURI = res.data.result.content.json_uri;
+    }
+
     return {
       address,
       chainId: 101,
       decimals: res.data.result.token_info.decimals,
       name,
       symbol,
-      logoURI: res.data.result.content.links?.image,
+      logoURI,
       networkId: NetworkId.solana,
     };
   }
