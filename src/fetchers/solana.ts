@@ -42,7 +42,6 @@ export default class SolanaFetcher extends Fetcher {
     return uniformSolanaTokenAddress(address);
   }
 
-  // eslint-disable-next-line class-methods-use-this
   async _fetch(address: string): Promise<Token | null> {
     if (address === solToken.address) return solToken;
     if (address === wsolToken.address) return wsolToken;
@@ -50,42 +49,40 @@ export default class SolanaFetcher extends Fetcher {
     const rawToken = solanaTokensMap.get(address);
     if (rawToken) return rawToken;
 
-    return null;
+    const res: AxiosResponse<DasGetAsset> = await axios.post(this.dasUrl, {
+      jsonrpc: '2.0',
+      id: 'text',
+      method: 'getAsset',
+      params: { id: address },
+    });
 
-    // const res: AxiosResponse<DasGetAsset> = await axios.post(this.dasUrl, {
-    //   jsonrpc: '2.0',
-    //   id: 'text',
-    //   method: 'getAsset',
-    //   params: { id: address },
-    // });
+    if (res.data.error) return null;
+    if (!res.data.result) return null;
+    if (res.data.result.token_info?.decimals === undefined) return null;
 
-    // if (res.data.error) return null;
-    // if (!res.data.result) return null;
-    // if (res.data.result.token_info?.decimals === undefined) return null;
+    const symbol =
+      res.data.result.content.metadata?.symbol ||
+      res.data.result.token_info?.symbol ||
+      res.data.result.content.metadata?.name;
+    const name =
+      res.data.result.content.metadata?.name ||
+      res.data.result.token_info?.symbol;
+    if (!symbol || !name) return null;
 
-    // const symbol =
-    //   res.data.result.content.metadata?.symbol ||
-    //   res.data.result.token_info?.symbol ||
-    //   res.data.result.content.metadata?.name;
-    // const name =
-    //   res.data.result.content.metadata?.name ||
-    //   res.data.result.token_info?.symbol;
-    // if (!symbol || !name) return null;
+    let logoURI = res.data.result.content.links?.image;
+    if (!logoURI) {
+      const isJsonUriAnImg = await isImageUrl(res.data.result.content.json_uri);
+      if (isJsonUriAnImg) logoURI = res.data.result.content.json_uri;
+    }
 
-    // let logoURI = res.data.result.content.links?.image;
-    // if (!logoURI) {
-    //   const isJsonUriAnImg = await isImageUrl(res.data.result.content.json_uri);
-    //   if (isJsonUriAnImg) logoURI = res.data.result.content.json_uri;
-    // }
-
-    // return {
-    //   address,
-    //   chainId: 101,
-    //   decimals: res.data.result.token_info.decimals,
-    //   name,
-    //   symbol,
-    //   logoURI,
-    //   networkId: NetworkId.solana,
-    // };
+    return {
+      address,
+      chainId: 101,
+      decimals: res.data.result.token_info.decimals,
+      name,
+      symbol,
+      logoURI,
+      networkId: NetworkId.solana,
+    };
   }
 }
