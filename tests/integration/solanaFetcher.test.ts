@@ -19,7 +19,7 @@ describe('SolanaFetcher', () => {
     const address = 'So11111111111111111111111111111111111111112';
     const tokenInfo = await fetcher.fetch(address);
     expect(tokenInfo).not.toBeNull();
-    expect(tokenInfo?.logoURI).not.toBeNull();
+    expect(tokenInfo?.logoURI).not.toBeUndefined();
     expect(tokenInfo?.symbol).toBe('wSOL');
     expect(tokenInfo?.chainId).toBe(101);
     expect(tokenInfo?.decimals).toBe(9);
@@ -29,7 +29,7 @@ describe('SolanaFetcher', () => {
     const address = '11111111111111111111111111111111';
     const tokenInfo = await fetcher.fetch(address);
     expect(tokenInfo).not.toBeNull();
-    expect(tokenInfo?.logoURI).not.toBeNull();
+    expect(tokenInfo?.logoURI).not.toBeUndefined();
     expect(tokenInfo?.symbol).toBe('SOL');
     expect(tokenInfo?.chainId).toBe(101);
     expect(tokenInfo?.decimals).toBe(9);
@@ -39,7 +39,7 @@ describe('SolanaFetcher', () => {
     const address = '4yCLi5yWGzpTWMQ1iWHG5CrGYAdBkhyEdsuSugjDUqwj';
     const tokenInfo = await fetcher.fetch(address);
     expect(tokenInfo).not.toBeNull();
-    expect(tokenInfo?.logoURI).not.toBeNull();
+    expect(tokenInfo?.logoURI).not.toBeUndefined();
     expect(tokenInfo?.symbol).toBe('ALP');
     expect(tokenInfo?.chainId).toBe(101);
     expect(tokenInfo?.decimals).toBe(6);
@@ -49,7 +49,7 @@ describe('SolanaFetcher', () => {
     const address = 'xAURp5XmAG7772mfkSy6vRAjGK9JofYjc3dmQDWdVDP';
     const tokenInfo = await fetcher.fetch(address);
     expect(tokenInfo).not.toBeNull();
-    expect(tokenInfo?.logoURI).not.toBeNull();
+    expect(tokenInfo?.logoURI).not.toBeUndefined();
     expect(tokenInfo?.symbol).toBe('xAURY');
     expect(tokenInfo?.chainId).toBe(101);
     expect(tokenInfo?.decimals).toBe(9);
@@ -59,7 +59,7 @@ describe('SolanaFetcher', () => {
     const address = 'vPtS4ywrbEuufwPkBXsCYkeTBfpzCd6hF52p8kJGt9b';
     const tokenInfo = await fetcher.fetch(address);
     expect(tokenInfo).not.toBeNull();
-    expect(tokenInfo?.logoURI).not.toBeNull();
+    expect(tokenInfo?.logoURI).not.toBeUndefined();
     expect(tokenInfo?.symbol).toBe('VPTS');
     expect(tokenInfo?.chainId).toBe(101);
     expect(tokenInfo?.decimals).toBe(6);
@@ -69,7 +69,7 @@ describe('SolanaFetcher', () => {
     const address = 'HZ1JovNiVvGrGNiiYvEozEVgZ58xaU3RKwX8eACQBCt3';
     const tokenInfo = await fetcher.fetch(address);
     expect(tokenInfo).not.toBeNull();
-    expect(tokenInfo?.logoURI).not.toBeNull();
+    expect(tokenInfo?.logoURI).not.toBeUndefined();
     expect(tokenInfo?.symbol).toBe('PYTH');
     expect(tokenInfo?.chainId).toBe(101);
     expect(tokenInfo?.decimals).toBe(6);
@@ -79,7 +79,7 @@ describe('SolanaFetcher', () => {
     const address = 'sonarX4VtVkQemriJeLm6CKeW3GDMyiBnnAEMw1MRAE';
     const tokenInfo = await fetcher.fetch(address);
     expect(tokenInfo).not.toBeNull();
-    expect(tokenInfo?.logoURI).not.toBeNull();
+    expect(tokenInfo?.logoURI).not.toBeUndefined();
     expect(tokenInfo?.symbol).toBe('SONAR');
     expect(tokenInfo?.chainId).toBe(101);
     expect(tokenInfo?.decimals).toBe(9);
