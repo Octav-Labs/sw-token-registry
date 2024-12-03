@@ -18,7 +18,7 @@ export const solToken: Token = {
   networkId: NetworkId.solana,
   symbol: 'SOL',
   logoURI:
-    'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/SOL.webp',
+    'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/common/SOL.webp',
 };
 
 export const wsolToken: Token = {
@@ -29,7 +29,7 @@ export const wsolToken: Token = {
   networkId: NetworkId.solana,
   symbol: 'wSOL',
   logoURI:
-    'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/SOL.webp',
+    'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/common/SOL.webp',
 };
 
 export const suiToken: Token = {
@@ -42,7 +42,7 @@ export const suiToken: Token = {
   networkId: NetworkId.sui,
   symbol: 'SUI',
   logoURI:
-    'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/SUI.webp',
+    'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/common/SUI.webp',
 };
 
 export const aptosToken: Token = {
@@ -53,7 +53,7 @@ export const aptosToken: Token = {
   networkId: NetworkId.aptos,
   symbol: 'APT',
   logoURI:
-    'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/APT.webp',
+    'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/common/APT.webp',
 };
 
 export const rawTokens: Token[] = [
@@ -66,7 +66,7 @@ export const rawTokens: Token[] = [
     name: 'Ether',
     symbol: 'ETH',
     logoURI:
-      'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/ETH.webp',
+      'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/common/ETH.webp',
     networkId: NetworkId.ethereum,
   },
   {
@@ -78,7 +78,7 @@ export const rawTokens: Token[] = [
     name: 'Ether',
     symbol: 'ETH',
     logoURI:
-      'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/ETH.webp',
+      'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/common/ETH.webp',
     networkId: NetworkId.ethereum,
   },
   {
@@ -90,7 +90,7 @@ export const rawTokens: Token[] = [
     decimals: 18,
     chainId: 137,
     logoURI:
-      'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/MATIC.webp',
+      'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/common/MATIC.webp',
     networkId: NetworkId.polygon,
   },
   {
@@ -102,7 +102,7 @@ export const rawTokens: Token[] = [
     decimals: 18,
     chainId: 137,
     logoURI:
-      'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/MATIC.webp',
+      'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/common/MATIC.webp',
     networkId: NetworkId.polygon,
   },
   {
@@ -114,7 +114,7 @@ export const rawTokens: Token[] = [
     name: 'Avalanche',
     symbol: 'AVAX',
     logoURI:
-      'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/AVAX.webp',
+      'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/common/AVAX.webp',
     networkId: NetworkId.avalanche,
   },
   {
@@ -126,7 +126,7 @@ export const rawTokens: Token[] = [
     name: 'Wrapped AVAX',
     symbol: 'WAVAX',
     logoURI:
-      'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/AVAX.webp',
+      'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/common/AVAX.webp',
     networkId: NetworkId.avalanche,
   },
   {
@@ -138,7 +138,7 @@ export const rawTokens: Token[] = [
     name: 'BNB',
     symbol: 'BNB',
     logoURI:
-      'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/BNB.webp',
+      'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/common/BNB.webp',
     networkId: NetworkId.bnb,
   },
   {
@@ -150,7 +150,7 @@ export const rawTokens: Token[] = [
     symbol: 'WBNB',
     decimals: 18,
     logoURI:
-      'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/BNB.webp',
+      'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/common/BNB.webp',
     networkId: NetworkId.bnb,
   },
   suiToken,

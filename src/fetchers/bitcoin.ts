@@ -27,7 +27,7 @@ export default class BitcoinFetcher extends Fetcher {
       name: 'Bitcoin',
       symbol: 'BTC',
       logoURI:
-        'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/BTC.webp',
+        'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/common/BTC.webp',
       networkId: NetworkId.bitcoin,
     };
   }
