@@ -18,6 +18,12 @@ export const solanaTokens: Omit<Token, 'chainId' | 'networkId' | 'logoURI'>[] =
       name: 'Vault Points',
       symbol: 'VPTS',
     },
+    {
+      address: 'FAJA9Qgn1CqLKtYi77CoWSGH7dyRrat394q9mpRFQzGs',
+      decimals: 6,
+      name: 'PayPal USD wrapped by Save',
+      symbol: 'PYUSD',
+    },
   ];
 
 export const solanaTokensMap = new Map(
