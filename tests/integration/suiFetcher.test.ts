@@ -28,6 +28,15 @@ describe('suiFetcher', () => {
     expect(tokenInfo2).toBe(null);
   });
 
+  it('should return SUI token', async () => {
+    const address = '0x002::sui::SUI';
+    const tokenInfo = await fetcher.fetch(address);
+    expect(tokenInfo).not.toBeNull();
+    expect(tokenInfo?.symbol).toBe('SUI');
+    expect(tokenInfo?.chainId).toBe(1);
+    expect(tokenInfo?.decimals).toBe(9);
+  });
+
   it('should return BOB token', async () => {
     const address =
       '0x5f3a18cdfd7ef0527a65ba5c07dbe0efe276507d4d1a4d1bebe87f5d40df6cf6::bob::BOB';

@@ -7,7 +7,7 @@ import {
 import axios, { AxiosResponse } from 'axios';
 import { sleep } from '../helpers/misc';
 import { Token, JobFct, Job } from '../types';
-import { evmTokensMap } from '../helpers/constants';
+import { rawTokensMap } from '../helpers/constants';
 import { TokenRegistry } from '../TokenRegistry';
 
 const platforms: Record<string, string> = {
@@ -103,8 +103,8 @@ function getCoingeckoJob(networkId: NetworkIdType) {
         networkId
       );
 
-      // Ignore tokens that are in evmTokensMap
-      if (evmTokensMap.has(TokenRegistry.getKey(address, networkId))) continue;
+      // Ignore tokens that are in rawTokensMap
+      if (rawTokensMap.has(TokenRegistry.getKey(address, networkId))) continue;
 
       const coinDetailsRes: AxiosResponse<GeckoCoinDetails> | null = await axios
         .get(`https://api.coingecko.com/api/v3/coins/${gCoin.id}`, {

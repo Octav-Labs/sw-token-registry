@@ -30,6 +30,15 @@ describe('aptosFetcher', () => {
     expect(tokenInfo2).toBe(null);
   });
 
+  it('should return APT token', async () => {
+    const address = '0x00001::aptos_coin::AptosCoin';
+    const tokenInfo = await fetcher.fetch(address);
+    expect(tokenInfo).not.toBeNull();
+    expect(tokenInfo?.symbol).toBe('APT');
+    expect(tokenInfo?.chainId).toBe(1);
+    expect(tokenInfo?.decimals).toBe(8);
+  });
+
   it('should return APE token', async () => {
     const address =
       '0xada35ada7e43e2ee1c39633ffccec38b76ce702b4efc2e60b50f63fbe4f710d8::apetos_token::ApetosCoin';

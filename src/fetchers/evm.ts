@@ -9,7 +9,7 @@ import { avalanche, bsc, mainnet, polygon } from 'viem/chains';
 import Fetcher from '../Fetcher';
 import { Token } from '../types';
 import urlToUrlWithHeaders from '../helpers/urlToUrlWithHeaders';
-import { evmTokensMap } from '../helpers/constants';
+import { rawTokensMap } from '../helpers/constants';
 import { TokenRegistry } from '../TokenRegistry';
 
 export const viemChainsByNetworkId: Record<EvmNetworkIdType, Chain> = {
@@ -46,7 +46,7 @@ export default class EvmFetcher extends Fetcher {
   }
 
   async _fetch(address: string): Promise<Token | null> {
-    const constantToken = evmTokensMap.get(
+    const constantToken = rawTokensMap.get(
       TokenRegistry.getKey(address, this.networkId)
     );
     if (constantToken) return constantToken;

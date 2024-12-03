@@ -7,6 +7,7 @@ import {
 import Fetcher from '../Fetcher';
 import { Token } from '../types';
 import urlToUrlWithHeaders from '../helpers/urlToUrlWithHeaders';
+import { aptosToken } from '../helpers/constants';
 
 const coinInfo = '0x1::coin::CoinInfo';
 function getCoinAddressFromCoinType(coinType: string) {
@@ -44,6 +45,8 @@ export default class AptosFetcher extends Fetcher {
   }
 
   async _fetch(address: string): Promise<Token | null> {
+    if (address === aptosToken.address) return aptosToken;
+
     const isFungible = address.split('::').length === 1;
 
     let coinMetadata: CoinMetadata | void;

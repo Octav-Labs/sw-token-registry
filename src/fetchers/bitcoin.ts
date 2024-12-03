@@ -1,4 +1,5 @@
 import {
+  bitcoinNetwork,
   NetworkId,
   uniformBitcoinTokenAddress,
 } from '@sonarwatch/portfolio-core';
@@ -17,6 +18,8 @@ export default class BitcoinFetcher extends Fetcher {
 
   // eslint-disable-next-line class-methods-use-this
   async _fetch(address: string): Promise<Token | null> {
+    if (address !== bitcoinNetwork.native.address) return null;
+
     return {
       chainId: 1,
       address,
@@ -24,7 +27,7 @@ export default class BitcoinFetcher extends Fetcher {
       name: 'Bitcoin',
       symbol: 'BTC',
       logoURI:
-        'https://raw.githubusercontent.com/sonarwatch/token-lists/main/images/common/BTC.png',
+        'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/BTC.webp',
       networkId: NetworkId.bitcoin,
     };
   }

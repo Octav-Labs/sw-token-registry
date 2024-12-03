@@ -22,6 +22,24 @@ describe('SolanaFetcher', () => {
     expect(tokenInfo).toBe(null);
   });
 
+  it('should return wSOL token', async () => {
+    const address = 'So11111111111111111111111111111111111111112';
+    const tokenInfo = await fetcher.fetch(address);
+    expect(tokenInfo).not.toBeNull();
+    expect(tokenInfo?.symbol).toBe('wSOL');
+    expect(tokenInfo?.chainId).toBe(101);
+    expect(tokenInfo?.decimals).toBe(9);
+  });
+
+  it('should return SOL token', async () => {
+    const address = '11111111111111111111111111111111';
+    const tokenInfo = await fetcher.fetch(address);
+    expect(tokenInfo).not.toBeNull();
+    expect(tokenInfo?.symbol).toBe('SOL');
+    expect(tokenInfo?.chainId).toBe(101);
+    expect(tokenInfo?.decimals).toBe(9);
+  });
+
   it('should return PYTH token', async () => {
     const address = 'HZ1JovNiVvGrGNiiYvEozEVgZ58xaU3RKwX8eACQBCt3';
     const tokenInfo = await fetcher.fetch(address);

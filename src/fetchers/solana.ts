@@ -5,6 +5,7 @@ import {
 } from '@sonarwatch/portfolio-core';
 import Fetcher from '../Fetcher';
 import { Token } from '../types';
+import { solToken, wsolToken } from '../helpers/constants';
 
 type DasGetAsset = {
   error?: unknown;
@@ -39,6 +40,9 @@ export default class SolanaFetcher extends Fetcher {
   }
 
   async _fetch(address: string): Promise<Token | null> {
+    if (address === solToken.address) return solToken;
+    if (address === wsolToken.address) return wsolToken;
+
     const res: AxiosResponse<DasGetAsset> = await axios.post(this.dasUrl, {
       jsonrpc: '2.0',
       id: 'text',

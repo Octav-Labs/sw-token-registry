@@ -5,6 +5,7 @@ import {
 import { NetworkId, uniformMoveTokenAddress } from '@sonarwatch/portfolio-core';
 import Fetcher from '../Fetcher';
 import { Token } from '../types';
+import { suiToken } from '../helpers/constants';
 
 export default class SuiFetcher extends Fetcher {
   private client: MystenSuiClient;
@@ -26,6 +27,8 @@ export default class SuiFetcher extends Fetcher {
   }
 
   async _fetch(address: string): Promise<Token | null> {
+    if (address === suiToken.address) return suiToken;
+
     const res = await this.client
       .getCoinMetadata({ coinType: address })
       .catch((e) => {

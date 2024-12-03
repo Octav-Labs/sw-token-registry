@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { NetworkId } from '@sonarwatch/portfolio-core';
 import { Token, JobFct, Job } from '../types';
+import { solToken, wsolToken } from '../helpers/constants';
 
 async function getJupTokens() {
   const res = await axios.get('https://tokens.jup.ag/tokens', {
@@ -16,6 +17,9 @@ const jobFct: JobFct = async () => {
   const tokens = new Map<string, Token>();
   for (let i = 0; i < jupTokens.length; i += 1) {
     const jupToken = jupTokens[i];
+    if (jupToken.address === solToken.address) continue;
+    if (jupToken.address === wsolToken.address) continue;
+
     tokens.set(jupToken.address, {
       address: jupToken.address,
       chainId: 101,
