@@ -55,6 +55,16 @@ describe('SolanaFetcher', () => {
     expect(tokenInfo?.decimals).toBe(9);
   });
 
+  it('should return xAUR token', async () => {
+    const address = 'vPtS4ywrbEuufwPkBXsCYkeTBfpzCd6hF52p8kJGt9b';
+    const tokenInfo = await fetcher.fetch(address);
+    expect(tokenInfo).not.toBeNull();
+    expect(tokenInfo?.logoURI).not.toBeNull();
+    expect(tokenInfo?.symbol).toBe('VPTS');
+    expect(tokenInfo?.chainId).toBe(101);
+    expect(tokenInfo?.decimals).toBe(6);
+  });
+
   it('should return PYTH token', async () => {
     const address = 'HZ1JovNiVvGrGNiiYvEozEVgZ58xaU3RKwX8eACQBCt3';
     const tokenInfo = await fetcher.fetch(address);
