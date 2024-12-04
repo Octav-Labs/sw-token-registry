@@ -54,6 +54,17 @@ describe('suiFetcher', () => {
     expect(tokenInfo?.decimals).toBe(9);
   });
 
+  it('should return FUD token', async () => {
+    const address =
+      '0x76cb819b01abed502bee8a702b4c2d547532c12f25001c9dea795a5e631c26f1::fud::FUD';
+    const tokenInfo = await fetcher.fetch(address);
+    expect(tokenInfo).not.toBeNull();
+    expect(tokenInfo?.logoURI).not.toBeUndefined();
+    expect(tokenInfo?.symbol).toBe('FUD');
+    expect(tokenInfo?.chainId).toBe(1);
+    expect(tokenInfo?.decimals).toBe(5);
+  });
+
   it('should return HASUI token', async () => {
     const address =
       '0xbde4ba4c2e274a60ce15c1cfff9e5c42e41654ac8b6d906a57efa4bd3c29f47d::hasui::HASUI';
