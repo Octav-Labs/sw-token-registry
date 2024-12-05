@@ -9,6 +9,7 @@ import { sleep } from '../helpers/misc';
 import { Token, JobFct, Job } from '../types';
 import { rawTokensMap } from '../helpers/constants';
 import { TokenRegistry } from '../TokenRegistry';
+import { getCoingeckoCoinsList } from '../helpers/getCoingeckoCoinList';
 
 const platforms: Record<string, string> = {
   aptos: 'aptos',
@@ -30,13 +31,6 @@ const platforms: Record<string, string> = {
   sei: 'sei',
 };
 
-type GeckoCoin = {
-  id?: string;
-  symbol?: string;
-  name?: string;
-  platforms?: { [key: string]: string };
-};
-
 type GeckoCoinDetails = {
   id?: string;
   symbol?: string;
@@ -54,21 +48,6 @@ type GeckoCoinDetails = {
   };
 };
 
-async function getCoingeckoCoinsList() {
-  if (process.env.NODE_ENV !== 'test') await sleep(360000);
-  const coinsListRes: AxiosResponse<GeckoCoin[]> = await axios.get(
-    'https://api.coingecko.com/api/v3/coins/list',
-    {
-      params: {
-        include_platform: 'true',
-      },
-      timeout: 90000,
-    }
-  );
-  if (process.env.NODE_ENV !== 'test') await sleep(360000);
-  return coinsListRes.data;
-}
-
 function coingeckoPlatformFromNetworkId(networkId: NetworkIdType) {
   const platform = platforms[networkId];
   if (!platform) throw new Error('Platform is missing');
@@ -81,10 +60,7 @@ function getCoingeckoJob(networkId: NetworkIdType) {
   const { chainId } = network;
 
   const jobFct: JobFct = async () => {
-    const coinsList = await getCoingeckoCoinsList().catch(async (e) => {
-      await sleep(600000);
-      throw new Error(e);
-    });
+    const coinsList = await getCoingeckoCoinsList();
 
     const tokens: Map<string, Token> = new Map();
     for (let i = 0; i < coinsList.length; i += 1) {
@@ -116,7 +92,7 @@ function getCoingeckoJob(networkId: NetworkIdType) {
           },
         })
         .catch(() => null);
-      await sleep(6000);
+      await sleep(10000);
       if (!coinDetailsRes) continue;
       const coinDetails = coinDetailsRes.data;
       if (!coinDetails.name || !coinDetails.symbol) continue;
