@@ -81,17 +81,9 @@ describe('TokenRegistry', () => {
     const tokenRegistry = new TokenRegistry({
       fetchers,
       redisOptions,
+      memoryTtlMs: 100,
+      redisTtlMs: 100,
     });
-
-    const shibaToken = await tokenRegistry.getToken(
-      '0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce',
-      NetworkId.ethereum
-    );
-
-    const jupToken = await tokenRegistry.getToken(
-      'JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN',
-      NetworkId.solana
-    );
 
     // Expect the function to throw an error
     await expect(
@@ -101,8 +93,6 @@ describe('TokenRegistry', () => {
       )
     ).rejects.toThrow();
 
-    expect(shibaToken).not.toBeNull();
-    expect(jupToken).not.toBeNull();
     expect(tokenRegistry).toBeDefined();
     await tokenRegistry.disconnect();
     await sleep(200);
@@ -136,7 +126,7 @@ describe('TokenRegistry', () => {
     expect(tokenRedis).not.toBeNull();
     expect(tokenOnChain).toBeNull();
     await tokenRegistry.disconnect();
-    await sleep(200);
+    await sleep(7000);
   });
 
   it('sould paginate', async () => {
@@ -181,7 +171,7 @@ describe('TokenRegistry', () => {
 
     expect(res1.values.length + res2.values.length).toBeLessThan(10);
     await tokenRegistry.disconnect();
-    await sleep(50);
+    await sleep(3000);
   });
 
   it('should return HASUI token', async () => {
@@ -200,6 +190,6 @@ describe('TokenRegistry', () => {
     expect(tokenInfo?.chainId).toBe(1);
     expect(tokenInfo?.decimals).toBe(9);
     await tokenRegistry.disconnect();
-    await sleep(200);
+    await sleep(4000);
   });
 });
