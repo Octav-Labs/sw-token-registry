@@ -2,7 +2,10 @@ import { NetworkIdType, UniTokenInfo } from '@sonarwatch/portfolio-core';
 
 export type Token = UniTokenInfo & {
   networkId: NetworkIdType;
+  sourceId: string;
 };
+
+export type RawToken = Omit<Token, 'sourceId'>;
 
 export type JobFct = () => Promise<Token[]>;
 

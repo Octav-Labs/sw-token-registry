@@ -5,7 +5,7 @@ import {
   uniformMoveTokenAddress,
 } from '@sonarwatch/portfolio-core';
 import Fetcher from '../Fetcher';
-import { Token } from '../types';
+import { RawToken } from '../types';
 import urlToUrlWithHeaders from '../helpers/urlToUrlWithHeaders';
 import { aptosToken } from '../helpers/constants';
 
@@ -25,6 +25,7 @@ type CoinMetadata = {
 };
 
 export default class AptosFetcher extends Fetcher {
+  public readonly id: string = 'aptos';
   private client: Aptos;
 
   constructor(rpc: string) {
@@ -44,7 +45,7 @@ export default class AptosFetcher extends Fetcher {
     return uniformMoveTokenAddress(address);
   }
 
-  async _fetch(address: string): Promise<Token | null> {
+  async _fetch(address: string): Promise<RawToken | null> {
     if (address === aptosToken.address) return aptosToken;
 
     const isFungible = address.split('::').length === 1;

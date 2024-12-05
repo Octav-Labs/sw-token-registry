@@ -4,9 +4,10 @@ import {
   uniformBitcoinTokenAddress,
 } from '@sonarwatch/portfolio-core';
 import Fetcher from '../Fetcher';
-import { Token } from '../types';
+import { RawToken } from '../types';
 
 export default class BitcoinFetcher extends Fetcher {
+  public readonly id: string = 'bitcoin';
   // eslint-disable-next-line @typescript-eslint/no-useless-constructor
   constructor() {
     super();
@@ -17,7 +18,7 @@ export default class BitcoinFetcher extends Fetcher {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  async _fetch(address: string): Promise<Token | null> {
+  async _fetch(address: string): Promise<RawToken | null> {
     if (address !== bitcoinNetwork.native.address) return null;
 
     return {

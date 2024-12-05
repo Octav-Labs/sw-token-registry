@@ -7,10 +7,10 @@ import {
   uniformEvmTokenAddress,
   uniformMoveTokenAddress,
 } from '@sonarwatch/portfolio-core';
-import { Token } from '../types';
+import { RawToken } from '../types';
 import { TokenRegistry } from '../TokenRegistry';
 
-export const solToken: Token = {
+export const solToken: RawToken = {
   address: '11111111111111111111111111111111',
   chainId: solanaNetwork.chainId,
   decimals: solanaNativeDecimals,
@@ -21,7 +21,7 @@ export const solToken: Token = {
     'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/common/SOL.webp',
 };
 
-export const wsolToken: Token = {
+export const wsolToken: RawToken = {
   address: 'So11111111111111111111111111111111111111112',
   chainId: solanaNetwork.chainId,
   decimals: solanaNativeDecimals,
@@ -32,7 +32,7 @@ export const wsolToken: Token = {
     'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/common/SOL.webp',
 };
 
-export const suiToken: Token = {
+export const suiToken: RawToken = {
   address: uniformMoveTokenAddress(
     '0x0000000000000000000000000000000000000000000000000000000000000002::sui::SUI'
   ),
@@ -45,7 +45,7 @@ export const suiToken: Token = {
     'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/common/SUI.webp',
 };
 
-export const aptosToken: Token = {
+export const aptosToken: RawToken = {
   address: uniformMoveTokenAddress('0x1::aptos_coin::AptosCoin'),
   chainId: aptosNetwork.chainId,
   decimals: aptosNetwork.native.decimals,
@@ -56,7 +56,7 @@ export const aptosToken: Token = {
     'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/common/APT.webp',
 };
 
-export const rawTokens: Token[] = [
+export const rawTokens: RawToken[] = [
   {
     chainId: 1,
     address: uniformEvmTokenAddress(

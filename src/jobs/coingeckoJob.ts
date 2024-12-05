@@ -107,6 +107,7 @@ function getCoingeckoJob(networkId: NetworkIdType) {
         networkId,
         symbol: coinDetails.symbol,
         logoURI: coinDetails.image?.small,
+        sourceId: 'job-coingecko',
       };
       tokens.set(token.address, token);
     }

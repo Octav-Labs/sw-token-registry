@@ -7,7 +7,7 @@ import {
 import { Chain, createPublicClient, erc20Abi, http, PublicClient } from 'viem';
 import { avalanche, bsc, mainnet, polygon } from 'viem/chains';
 import Fetcher from '../Fetcher';
-import { Token } from '../types';
+import { RawToken } from '../types';
 import urlToUrlWithHeaders from '../helpers/urlToUrlWithHeaders';
 import { rawTokensMap } from '../helpers/constants';
 import { TokenRegistry } from '../TokenRegistry';
@@ -20,13 +20,14 @@ export const viemChainsByNetworkId: Record<EvmNetworkIdType, Chain> = {
 };
 
 export default class EvmFetcher extends Fetcher {
+  public readonly id: string;
   readonly networkId: EvmNetworkIdType;
   private client: PublicClient;
   private network: Network;
 
   constructor(rpc: string, networkId: EvmNetworkIdType) {
     super();
-
+    this.id = `evm-${networkId}`;
     const chain = viemChainsByNetworkId[networkId];
     const urlWithHeaders = urlToUrlWithHeaders(rpc);
     this.client = createPublicClient({
@@ -45,7 +46,7 @@ export default class EvmFetcher extends Fetcher {
     return uniformEvmTokenAddress(address);
   }
 
-  async _fetch(address: string): Promise<Token | null> {
+  async _fetch(address: string): Promise<RawToken | null> {
     const constantToken = rawTokensMap.get(
       TokenRegistry.getKey(address, this.networkId)
     );

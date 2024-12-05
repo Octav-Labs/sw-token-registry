@@ -4,7 +4,7 @@ import {
   uniformSolanaTokenAddress,
 } from '@sonarwatch/portfolio-core';
 import Fetcher from '../Fetcher';
-import { Token } from '../types';
+import { RawToken } from '../types';
 import { solToken, wsolToken } from '../helpers/constants';
 import { isImageUrl } from '../helpers/isImageUrl';
 import { solanaTokensMap } from '../helpers/solanaTokens';
@@ -32,6 +32,7 @@ type DasGetAsset = {
 };
 
 export default class SolanaFetcher extends Fetcher {
+  public readonly id: string = 'solana';
   private dasUrl: string;
 
   constructor(dasUrl: string) {
@@ -42,7 +43,7 @@ export default class SolanaFetcher extends Fetcher {
     return uniformSolanaTokenAddress(address);
   }
 
-  async _fetch(address: string): Promise<Token | null> {
+  async _fetch(address: string): Promise<RawToken | null> {
     if (address === solToken.address) return solToken;
     if (address === wsolToken.address) return wsolToken;
 

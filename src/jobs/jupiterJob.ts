@@ -30,6 +30,7 @@ const jobFct: JobFct = async () => {
       symbol: jupToken.symbol,
       logoURI: jupToken.logoURI,
       networkId: NetworkId.solana,
+      sourceId: 'job-jupiter',
     });
   }
   return Array.from(tokens.values());
