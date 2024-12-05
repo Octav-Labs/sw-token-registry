@@ -13,6 +13,8 @@ let gCoinsList: GeckoCoin[] | undefined;
 let gCoinsListTs = 0;
 
 export async function getCoingeckoCoinsList() {
+  await sleep(300000);
+
   if (gCoinsList && Date.now() - COINS_LIST_TTL < gCoinsListTs)
     return gCoinsList;
 
