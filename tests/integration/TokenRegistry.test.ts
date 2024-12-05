@@ -124,6 +124,7 @@ describe('TokenRegistry', () => {
       decimals: 1,
       name: 'Foo token',
       symbol: 'FOO',
+      sourceId: 'foosource',
     });
     const tokenMemory = await tokenRegistry.getToken(address, NetworkId.aptos);
     await sleep(3100);
@@ -161,6 +162,7 @@ describe('TokenRegistry', () => {
         decimals: 6,
         name: `Token#${i}`,
         symbol: `T${i}`,
+        sourceId: 'foosource',
       };
     }
 
@@ -197,5 +199,7 @@ describe('TokenRegistry', () => {
     expect(tokenInfo?.symbol).toBe('haSUI');
     expect(tokenInfo?.chainId).toBe(1);
     expect(tokenInfo?.decimals).toBe(9);
+    await tokenRegistry.disconnect();
+    await sleep(200);
   });
 });

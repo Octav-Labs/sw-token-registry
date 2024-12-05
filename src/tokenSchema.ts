@@ -127,6 +127,13 @@ const tokenSchema = {
       minimum: 1,
       examples: [1, 42],
     },
+    sourceId: {
+      type: 'string',
+      description: 'The source ID of the token',
+      minLength: 1,
+      maxLength: 64,
+      examples: ['job-jupiter'],
+    },
     address: {
       type: 'string',
       description:
@@ -200,7 +207,15 @@ const tokenSchema = {
       $ref: '#/definitions/ExtensionMap',
     },
   },
-  required: ['chainId', 'address', 'decimals', 'name', 'symbol', 'networkId'],
+  required: [
+    'chainId',
+    'address',
+    'decimals',
+    'name',
+    'symbol',
+    'networkId',
+    'sourceId',
+  ],
 };
 
 export default tokenSchema;

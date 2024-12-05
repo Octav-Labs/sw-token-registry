@@ -66,6 +66,7 @@ describe('SolanaFetcher', () => {
       symbol: 'PYTH',
       logoURI: 'https://pyth.network/token.svg',
       networkId: NetworkId.solana,
+      sourceId: fetcher.getSourceId(),
     };
     expect(result).toEqual(pythToken);
   });

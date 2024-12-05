@@ -41,6 +41,7 @@ describe('jupiterJob', () => {
         symbol: 'TKN1',
         logoURI: 'https://example.com/token1.png',
         networkId: NetworkId.solana,
+        sourceId: 'job-jupiter',
       },
       {
         address: 'token2',
@@ -50,6 +51,7 @@ describe('jupiterJob', () => {
         symbol: 'TKN2',
         logoURI: 'https://example.com/token2.png',
         networkId: NetworkId.solana,
+        sourceId: 'job-jupiter',
       },
     ];
 

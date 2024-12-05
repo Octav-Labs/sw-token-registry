@@ -166,7 +166,13 @@ export class TokenRegistry {
 
     const tToken = await this.transformToken(token);
     const valid = ajvToken(tToken);
-    if (!valid) return null;
+    if (!valid) {
+      this.logger?.warn(
+        `Failed to validate ${token.networkId} : ${token.address}`,
+        JSON.stringify(ajvToken.errors)
+      );
+      return null;
+    }
 
     return tToken;
   }
