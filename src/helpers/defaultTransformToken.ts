@@ -1,6 +1,10 @@
 import { uniformTokenAddress } from '@sonarwatch/portfolio-core';
 import { Token } from '../types';
 
+function isLowerCase(str: string): boolean {
+  return str === str.toLowerCase();
+}
+
 export async function defaultTransformToken(token: Token): Promise<Token> {
   const name = token.name
     .normalize('NFKC')
@@ -13,11 +17,13 @@ export async function defaultTransformToken(token: Token): Promise<Token> {
     .trim()
     .substring(0, 64);
 
-  const symbol = token.symbol
+  let symbol = token.symbol
     .replace(/[^\x20-\x7F]/g, '')
     .trim()
     .replaceAll(' ', '')
     .substring(0, 20);
+
+  if (isLowerCase(symbol)) symbol = symbol.toUpperCase();
 
   const nToken: Token = {
     ...token,
