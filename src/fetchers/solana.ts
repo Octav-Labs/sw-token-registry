@@ -5,9 +5,9 @@ import {
 } from '@sonarwatch/portfolio-core';
 import Fetcher from '../Fetcher';
 import { RawToken } from '../types';
-import { solToken, wsolToken } from '../helpers/constants';
 import { isImageUrl } from '../helpers/isImageUrl';
-import { solanaTokensMap } from '../tokens/solanaTokens';
+import { constTokensMap } from '../tokens/constTokens';
+import { getKey } from '../helpers/getKey';
 
 type DasGetAsset = {
   error?: unknown;
@@ -44,11 +44,8 @@ export default class SolanaFetcher extends Fetcher {
   }
 
   async _fetch(address: string): Promise<RawToken | null> {
-    if (address === solToken.address) return solToken;
-    if (address === wsolToken.address) return wsolToken;
-
-    const rawToken = solanaTokensMap.get(address);
-    if (rawToken) return rawToken;
+    const cToken = constTokensMap.get(getKey(address, NetworkId.solana));
+    if (cToken) return cToken;
 
     const res: AxiosResponse<DasGetAsset> = await axios.post(this.dasUrl, {
       jsonrpc: '2.0',

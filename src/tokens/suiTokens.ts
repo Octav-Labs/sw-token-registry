@@ -1,7 +1,17 @@
-import { NetworkId, uniformMoveTokenAddress } from '@sonarwatch/portfolio-core';
+import { NetworkId, suiNetwork } from '@sonarwatch/portfolio-core';
 import { RawToken } from '../types';
 
-export const suiTokens: Omit<RawToken, 'chainId' | 'networkId'>[] = [
+export const suiTokens: Omit<RawToken, 'chainId'>[] = [
+  {
+    address:
+      '0x0000000000000000000000000000000000000000000000000000000000000002::sui::SUI',
+    decimals: suiNetwork.native.decimals,
+    name: 'Sui',
+    networkId: NetworkId.sui,
+    symbol: 'SUI',
+    logoURI:
+      'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/common/SUI.webp',
+  },
   {
     address:
       '0xb231fcda8bbddb31f2ef02e6161444aec64a514e2c89279584ac9806ce9cf037::coin::COIN',
@@ -10,6 +20,7 @@ export const suiTokens: Omit<RawToken, 'chainId' | 'networkId'>[] = [
     symbol: 'USDCso',
     logoURI:
       'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/common/USDC.webp',
+    networkId: NetworkId.sui,
   },
   {
     address:
@@ -19,6 +30,7 @@ export const suiTokens: Omit<RawToken, 'chainId' | 'networkId'>[] = [
     symbol: 'USDCbnb',
     logoURI:
       'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/common/USDC.webp',
+    networkId: NetworkId.sui,
   },
   {
     address:
@@ -28,20 +40,6 @@ export const suiTokens: Omit<RawToken, 'chainId' | 'networkId'>[] = [
     symbol: 'USDCarb',
     logoURI:
       'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/common/USDC.webp',
+    networkId: NetworkId.sui,
   },
 ];
-
-export const suiTokensMap = new Map(
-  suiTokens.map((t): [string, RawToken] => [
-    uniformMoveTokenAddress(t.address),
-    {
-      ...t,
-      address: uniformMoveTokenAddress(t.address),
-      chainId: 1,
-      networkId: NetworkId.sui,
-      logoURI:
-        t.logoURI ||
-        `https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/sui/${t.address}.webp`,
-    },
-  ])
-);

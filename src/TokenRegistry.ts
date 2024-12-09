@@ -13,6 +13,7 @@ import { Milliseconds, Seconds, Token } from './types';
 import tokenSchema from './tokenSchema';
 import { defaultTransformToken } from './helpers/defaultTransformToken';
 import runInBatch from './helpers/misc';
+import { getKey } from './helpers/getKey';
 
 const PAGINATE_MAX_COUNT = 500;
 const nullTokenValue = Symbol('nulltoken');
@@ -67,8 +68,7 @@ export class TokenRegistry {
   }
 
   static getKey(address: string, networkId: NetworkIdType) {
-    const uniTokAddress = uniformTokenAddress(address, networkId);
-    return `token:${networkId}:${uniTokAddress}`;
+    return getKey(address, networkId);
   }
 
   static getAddressFromKey(key: string) {

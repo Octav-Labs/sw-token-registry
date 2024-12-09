@@ -7,7 +7,8 @@ import {
 import Fetcher from '../Fetcher';
 import { RawToken } from '../types';
 import urlToUrlWithHeaders from '../helpers/urlToUrlWithHeaders';
-import { aptosToken } from '../helpers/constants';
+import { constTokensMap } from '../tokens/constTokens';
+import { getKey } from '../helpers/getKey';
 
 const coinInfo = '0x1::coin::CoinInfo';
 function getCoinAddressFromCoinType(coinType: string) {
@@ -46,7 +47,8 @@ export default class AptosFetcher extends Fetcher {
   }
 
   async _fetch(address: string): Promise<RawToken | null> {
-    if (address === aptosToken.address) return aptosToken;
+    const cToken = constTokensMap.get(getKey(address, NetworkId.solana));
+    if (cToken) return cToken;
 
     const isFungible = address.split('::').length === 1;
 

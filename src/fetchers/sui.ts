@@ -5,8 +5,8 @@ import {
 import { NetworkId, uniformMoveTokenAddress } from '@sonarwatch/portfolio-core';
 import Fetcher from '../Fetcher';
 import { RawToken } from '../types';
-import { suiToken } from '../helpers/constants';
-import { suiTokensMap } from '../tokens/suiTokens';
+import { constTokensMap } from '../tokens/constTokens';
+import { getKey } from '../helpers/getKey';
 
 export default class SuiFetcher extends Fetcher {
   public readonly id: string = 'sui';
@@ -29,10 +29,8 @@ export default class SuiFetcher extends Fetcher {
   }
 
   async _fetch(address: string): Promise<RawToken | null> {
-    if (address === suiToken.address) return suiToken;
-
-    const rawToken = suiTokensMap.get(address);
-    if (rawToken) return rawToken;
+    const cToken = constTokensMap.get(getKey(address, NetworkId.solana));
+    if (cToken) return cToken;
 
     const res = await this.client
       .getCoinMetadata({ coinType: address })
