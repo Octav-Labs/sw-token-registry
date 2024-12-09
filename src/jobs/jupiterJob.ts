@@ -2,7 +2,7 @@ import axios from 'axios';
 import { NetworkId } from '@sonarwatch/portfolio-core';
 import { Token, JobFct, Job } from '../types';
 import { solToken, wsolToken } from '../helpers/constants';
-import { solanaTokensMap } from '../helpers/solanaTokens';
+import { solanaTokensMap } from '../tokens/solanaTokens';
 
 async function getJupTokens() {
   const res = await axios.get('https://tokens.jup.ag/tokens', {

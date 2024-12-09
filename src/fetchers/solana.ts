@@ -7,7 +7,7 @@ import Fetcher from '../Fetcher';
 import { RawToken } from '../types';
 import { solToken, wsolToken } from '../helpers/constants';
 import { isImageUrl } from '../helpers/isImageUrl';
-import { solanaTokensMap } from '../helpers/solanaTokens';
+import { solanaTokensMap } from '../tokens/solanaTokens';
 
 type DasGetAsset = {
   error?: unknown;

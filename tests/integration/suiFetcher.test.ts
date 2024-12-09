@@ -65,6 +65,17 @@ describe('suiFetcher', () => {
     expect(tokenInfo?.decimals).toBe(5);
   });
 
+  it('should return USDCso token', async () => {
+    const address =
+      '0xb231fcda8bbddb31f2ef02e6161444aec64a514e2c89279584ac9806ce9cf037::coin::COIN';
+    const tokenInfo = await fetcher.fetch(address);
+    expect(tokenInfo).not.toBeNull();
+    expect(tokenInfo?.logoURI).not.toBeUndefined();
+    expect(tokenInfo?.symbol).toBe('USDCso');
+    expect(tokenInfo?.chainId).toBe(1);
+    expect(tokenInfo?.decimals).toBe(6);
+  });
+
   it('should return HASUI token', async () => {
     const address =
       '0xbde4ba4c2e274a60ce15c1cfff9e5c42e41654ac8b6d906a57efa4bd3c29f47d::hasui::HASUI';
