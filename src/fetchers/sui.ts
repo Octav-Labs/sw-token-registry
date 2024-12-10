@@ -29,7 +29,7 @@ export default class SuiFetcher extends Fetcher {
   }
 
   async _fetch(address: string): Promise<RawToken | null> {
-    const cToken = constTokensMap.get(getKey(address, NetworkId.solana));
+    const cToken = constTokensMap.get(getKey(address, NetworkId.sui));
     if (cToken) return cToken;
 
     const res = await this.client
