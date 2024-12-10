@@ -47,7 +47,7 @@ export default class AptosFetcher extends Fetcher {
   }
 
   async _fetch(address: string): Promise<RawToken | null> {
-    const cToken = constTokensMap.get(getKey(address, NetworkId.solana));
+    const cToken = constTokensMap.get(getKey(address, NetworkId.aptos));
     if (cToken) return cToken;
 
     const isFungible = address.split('::').length === 1;
