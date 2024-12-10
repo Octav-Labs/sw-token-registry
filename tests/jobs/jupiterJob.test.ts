@@ -10,14 +10,14 @@ describe('jupiterJob', () => {
     // Mock response data
     const mockResponseData = [
       {
-        address: 'token1',
+        address: 'token11111111111111111111111111111111111111',
         decimals: 6,
         name: 'Token One',
         symbol: 'TKN1',
         logoURI: 'https://example.com/token1.png',
       },
       {
-        address: 'token2',
+        address: 'token22222222222222222222222222222222222222',
         decimals: 8,
         name: 'Token Two',
         symbol: 'TKN2',
@@ -34,7 +34,7 @@ describe('jupiterJob', () => {
     // Expected output array
     const expectedResult = [
       {
-        address: 'token1',
+        address: 'token11111111111111111111111111111111111111',
         chainId: 101,
         decimals: 6,
         name: 'Token One',
@@ -44,7 +44,7 @@ describe('jupiterJob', () => {
         sourceId: 'job-jupiter',
       },
       {
-        address: 'token2',
+        address: 'token22222222222222222222222222222222222222',
         chainId: 101,
         decimals: 8,
         name: 'Token Two',
