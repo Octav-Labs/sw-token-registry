@@ -1,6 +1,6 @@
 import {
   getNetworkById,
-  uniformAddressByNetworkId,
+  uniformTokenAddress,
 } from '@sonarwatch/portfolio-core';
 import { RawToken } from '../types';
 import { solanaTokens } from './solanaTokens';
@@ -21,7 +21,7 @@ export const constTokensMap: Map<string, RawToken> = new Map(
     getKey(t.address, t.networkId),
     {
       ...t,
-      address: uniformAddressByNetworkId(t.address, t.networkId),
+      address: uniformTokenAddress(t.address, t.networkId),
       chainId: getNetworkById(t.networkId).chainId,
       logoURI:
         t.logoURI ||
