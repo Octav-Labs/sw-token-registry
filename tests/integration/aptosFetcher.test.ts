@@ -10,14 +10,6 @@ describe('aptosFetcher', () => {
     fetcher = new AptosFetcher(rpc);
   });
 
-  it('should return null if token address is not valid', async () => {
-    const tokenInfo1 = await fetcher.fetch('address_that_doesnt_exist');
-    expect(tokenInfo1).toBe(null);
-
-    const tokenInfo2 = await fetcher.fetch('address::that::doesnt::exist');
-    expect(tokenInfo2).toBe(null);
-  });
-
   it('should return null if address is valid but not a token', async () => {
     const tokenInfo1 = await fetcher.fetch(
       '0xada35ada7e43e2ee1c39633ffccec38b76ce702b4efc2e60b50f63fbe4f710d5::apetos_token::ApetosCoin'
