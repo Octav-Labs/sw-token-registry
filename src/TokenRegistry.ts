@@ -184,7 +184,11 @@ export class TokenRegistry {
   ): Promise<void> {
     const key = TokenRegistry.getKey(address, networkId);
     this.lruCache.set(key, token === null ? nullTokenValue : token);
-    await this.redisClient.set(key, JSON.stringify(token), 'EX', this.redisTtl);
+
+    // Ttl + or - 10%
+    const ttl = Math.round(this.redisTtl * (Math.random() * 0.2 + 0.9));
+
+    await this.redisClient.set(key, JSON.stringify(token), 'EX', ttl);
   }
 
   public async disconnect(): Promise<void> {
