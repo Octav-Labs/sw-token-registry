@@ -169,6 +169,7 @@ export class TokenRegistry {
     if (!valid) {
       this.logger?.warn(
         `Failed to validate ${token.networkId} : ${token.address}`,
+        token,
         JSON.stringify(ajvToken.errors)
       );
       return null;
