@@ -4,6 +4,19 @@ import { Token, JobFct, Job } from '../types';
 import { constTokensMap } from '../tokens/constTokens';
 import { getKey } from '../helpers/getKey';
 
+type JupToken = {
+  address: string;
+  created_at: Date;
+  daily_volume: number;
+  decimals: number;
+  freeze_authority: null | string;
+  logoURI: null | string;
+  mint_authority: null | string;
+  minted_at: Date | null;
+  name: string;
+  permanent_delegate: null | string;
+  symbol: string;
+};
 async function getJupTokens() {
   const res = await axios.get('https://tokens.jup.ag/tokens', {
     timeout: 240000,
@@ -14,7 +27,7 @@ async function getJupTokens() {
 }
 
 const jobFct: JobFct = async () => {
-  const jupTokens = await getJupTokens();
+  const jupTokens: JupToken[] = await getJupTokens();
   const tokens = new Map<string, Token>();
   for (let i = 0; i < jupTokens.length; i += 1) {
     const jupToken = jupTokens[i];
