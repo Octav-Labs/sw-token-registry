@@ -164,7 +164,7 @@ export class TokenRegistry {
   private async validateToken(token: Token | null): Promise<Token | null> {
     if (token === null) return null;
 
-    const tToken = await this.transformToken(token);
+    const tToken: Token = await this.transformToken(token);
     const valid = ajvToken(tToken);
     if (!valid) {
       this.logger?.warn(
