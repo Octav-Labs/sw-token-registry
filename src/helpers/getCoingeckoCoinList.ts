@@ -8,7 +8,7 @@ type GeckoCoin = {
   platforms?: { [key: string]: string };
 };
 
-const COINS_LIST_TTL = 3600000; // 1h
+const COINS_LIST_TTL = 21600000; // 6h
 let gCoinsList: GeckoCoin[] | undefined;
 let gCoinsListTs = 0;
 
