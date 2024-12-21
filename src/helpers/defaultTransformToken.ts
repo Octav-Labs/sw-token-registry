@@ -1,5 +1,6 @@
 import { uniformTokenAddress } from '@sonarwatch/portfolio-core';
 import { Token } from '../types';
+import { isUri } from './isUri';
 
 function isLowerCase(str: string): boolean {
   return str === str.toLowerCase();
@@ -30,6 +31,7 @@ export async function defaultTransformToken(token: Token): Promise<Token> {
     symbol,
     name,
     address: uniformTokenAddress(token.address, token.networkId),
+    logoURI: isUri(token.logoURI) ? token.logoURI : undefined,
   };
 
   return nToken;
