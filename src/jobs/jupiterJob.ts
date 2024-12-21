@@ -41,7 +41,7 @@ const jobFct: JobFct = async () => {
       decimals: jupToken.decimals,
       name: jupToken.name,
       symbol: jupToken.symbol,
-      logoURI: jupToken.logoURI || undefined,
+      logoURI: jupToken.logoURI ? jupToken.logoURI : undefined,
       networkId: NetworkId.solana,
       sourceId: 'job-jupiter',
     });
