@@ -7,6 +7,7 @@ import {
   UniTokenAddress,
 } from '@sonarwatch/portfolio-core';
 import { LRUCache } from 'lru-cache';
+import { nanoid } from 'nanoid';
 import { Logger } from './Logger';
 import Fetcher from './Fetcher';
 import { Milliseconds, Seconds, Token } from './types';
@@ -33,6 +34,7 @@ export type TokenRegistryConfig = {
 };
 
 export class TokenRegistry {
+  private id: string;
   private logger: Logger | undefined;
   private redisClient: Redis;
   private fetchers: Partial<Record<NetworkIdType, Fetcher>>;
@@ -42,6 +44,7 @@ export class TokenRegistry {
   private transformToken: (token: Token) => Promise<Token>;
 
   constructor(config: TokenRegistryConfig) {
+    this.id = nanoid(6);
     this.logger = config.logger;
     this.fetchers = config.fetchers;
     this.transformToken = config.transformToken || defaultTransformToken;
@@ -60,10 +63,10 @@ export class TokenRegistry {
     // Redis
     this.redisClient = new Redis(config.redisOptions);
     this.redisClient.on('connect', () => {
-      this.logger?.info('TokenRegistry connected to Redis');
+      this.logger?.info(`[${this.id}] TokenRegistry connected to Redis`);
     });
     this.redisClient.on('error', (err) => {
-      this.logger?.error('TokenRegistry Redis client error', err);
+      this.logger?.error(`[${this.id}] TokenRegistry Redis client error`, err);
     });
   }
 
@@ -120,7 +123,7 @@ export class TokenRegistry {
     return res.map((r, i) => {
       if (r.status === 'rejected') {
         this.logger?.warn(
-          `Failed to get token:  ${items[i].networkId} | ${items[i].address}`
+          `[${this.id}] Failed to get token:  ${items[i].networkId} | ${items[i].address}`
         );
         return null;
       }
@@ -168,7 +171,7 @@ export class TokenRegistry {
     const valid = ajvToken(tToken);
     if (!valid) {
       this.logger?.warn(
-        `Failed to validate ${token.networkId} : ${token.address}`,
+        `[${this.id}] Failed to validate ${token.networkId} : ${token.address}`,
         token,
         JSON.stringify(ajvToken.errors)
       );
@@ -196,7 +199,10 @@ export class TokenRegistry {
     try {
       await this.redisClient.quit();
     } catch (error) {
-      this.logger?.error('TokenRegistry error disconnecting from Redis', error);
+      this.logger?.error(
+        `[${this.id}] TokenRegistry error disconnecting from Redis`,
+        error
+      );
     }
   }
 }
