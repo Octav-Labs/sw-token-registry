@@ -61,4 +61,15 @@ describe('aptosFetcher', () => {
     expect(tokenInfo?.chainId).toBe(1);
     expect(tokenInfo?.decimals).toBe(8);
   });
+
+  it('should return MEE token', async () => {
+    const address =
+      '0xe9c192ff55cffab3963c695cff6dbf9dad6aff2bb5ac19a6415cad26a81860d9::mee_coin::MeeCoin';
+    const tokenInfo = await fetcher.fetch(address);
+    expect(tokenInfo).not.toBeNull();
+    expect(tokenInfo?.logoURI).not.toBeUndefined();
+    expect(tokenInfo?.symbol).toBe('MEE');
+    expect(tokenInfo?.chainId).toBe(1);
+    expect(tokenInfo?.decimals).toBe(6);
+  });
 });
