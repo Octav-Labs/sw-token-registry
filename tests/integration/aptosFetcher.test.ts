@@ -41,6 +41,17 @@ describe('aptosFetcher', () => {
     expect(tokenInfo?.decimals).toBe(8);
   });
 
+  it('should return wUSDC token', async () => {
+    const address =
+      '0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::USDC';
+    const tokenInfo = await fetcher.fetch(address);
+    expect(tokenInfo).not.toBeNull();
+    expect(tokenInfo?.logoURI).not.toBeUndefined();
+    expect(tokenInfo?.symbol).toBe('zUSDC');
+    expect(tokenInfo?.chainId).toBe(1);
+    expect(tokenInfo?.decimals).toBe(6);
+  });
+
   it('should return CELL token', async () => {
     const address =
       '0x2ebb2ccac5e027a87fa0e2e5f656a3a4238d6a48d93ec9b610d570fc0aa0df12';

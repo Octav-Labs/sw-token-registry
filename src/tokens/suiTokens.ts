@@ -14,6 +14,16 @@ export const suiTokens: Omit<RawToken, 'chainId'>[] = [
   },
   {
     address:
+      '0x5d4b302506645c37ff133b98c4b50a5ae14841659738d6d733d59d0d217a93bf::coin::COIN',
+    decimals: 6,
+    name: 'USD Coin (Wormhole from Ethereum)',
+    symbol: 'wUSDC',
+    logoURI:
+      'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/common/USDC.webp',
+    networkId: NetworkId.sui,
+  },
+  {
+    address:
       '0xb231fcda8bbddb31f2ef02e6161444aec64a514e2c89279584ac9806ce9cf037::coin::COIN',
     decimals: 6,
     name: 'USD Coin (Wormhole from Solana)',
