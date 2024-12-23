@@ -31,4 +31,12 @@ export const aptosTokens: Omit<RawToken, 'chainId'>[] = [
       'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/common/USDC.webp',
     networkId: NetworkId.aptos,
   },
+  {
+    address:
+      '0xe9c192ff55cffab3963c695cff6dbf9dad6aff2bb5ac19a6415cad26a81860d9::mee_coin::MeeCoin',
+    decimals: 6,
+    name: 'Meeiro Coin',
+    symbol: 'MEE',
+    networkId: NetworkId.aptos,
+  },
 ];
