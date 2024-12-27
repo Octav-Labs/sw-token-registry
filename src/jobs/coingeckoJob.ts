@@ -7,7 +7,7 @@ import {
 import axios, { AxiosResponse } from 'axios';
 import { sleep } from '../helpers/misc';
 import { Token, JobFct, Job } from '../types';
-import { getCoingeckoCoinsList } from '../helpers/getCoingeckoCoinList';
+import { getCoingeckoCoinsList } from '../helpers/getCoingeckoCoinsList';
 import { constTokensMap } from '../tokens/constTokens';
 import { getKey } from '../helpers/getKey';
 
