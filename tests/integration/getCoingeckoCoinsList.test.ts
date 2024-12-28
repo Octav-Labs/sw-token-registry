@@ -1,4 +1,4 @@
-import { getCoingeckoCoinsList } from '../src/helpers/getCoingeckoCoinsList';
+import { getCoingeckoCoinsList } from '../../src/helpers/getCoingeckoCoinsList';
 
 describe('getCoingeckoCoinsList', () => {
   jest.setTimeout(1200000); // Increase the timeout to handle potential network delays
