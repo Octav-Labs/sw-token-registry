@@ -62,9 +62,9 @@ export class TokenRegistry {
 
     // Redis
     this.redisClient = new Redis(config.redisOptions);
-    this.redisClient.on('connect', () => {
-      this.logger?.info(`[${this.id}] TokenRegistry connected to Redis`);
-    });
+    // this.redisClient.on('connect', () => {
+    //   this.logger?.info(`[${this.id}] TokenRegistry connected to Redis`);
+    // });
     this.redisClient.on('error', (err) => {
       this.logger?.error(`[${this.id}] TokenRegistry Redis client error`, err);
     });
