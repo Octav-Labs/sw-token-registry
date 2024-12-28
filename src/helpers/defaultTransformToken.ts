@@ -15,6 +15,7 @@ export async function defaultTransformToken(token: Token): Promise<Token> {
     .replaceAll('\r', '')
     .replace(/[\uFE70-\uFEFF]/g, '')
     .replace(/[\uFFF0-\uFFFF]/g, '')
+    .replace(/[\u2028]/g, ' ')
     .trim()
     .substring(0, 64);
 
