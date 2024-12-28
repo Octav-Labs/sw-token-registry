@@ -8,13 +8,11 @@ type GeckoCoin = {
   platforms?: { [key: string]: string };
 };
 
-const COINS_LIST_TTL = 86400000; // 24h
+const COINS_LIST_TTL = 93600000; // 26h
 let gCoinsList: GeckoCoin[] | undefined;
 let gCoinsListTs = 0;
 
 export async function getCoingeckoCoinsList() {
-  await sleep(5000);
-
   if (gCoinsList && Date.now() - COINS_LIST_TTL < gCoinsListTs)
     return gCoinsList;
 
