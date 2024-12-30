@@ -37,7 +37,7 @@ type GeckoCoinDetails = {
   name?: string;
   detail_platforms?: {
     [key: string]: {
-      decimal_place?: number;
+      decimal_place?: number | null;
       contract_address?: string;
     };
   };
@@ -97,7 +97,7 @@ function getCoingeckoJob(networkId: NetworkIdType) {
       const coinDetails = coinDetailsRes.data;
       if (!coinDetails.name || !coinDetails.symbol) continue;
       const decimals = coinDetails.detail_platforms?.[gPlatform]?.decimal_place;
-      if (decimals === undefined) continue;
+      if (decimals === undefined || decimals === null) continue;
 
       const token: Token = {
         address,
