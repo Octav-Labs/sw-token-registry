@@ -39,4 +39,14 @@ export const aptosTokens: Omit<RawToken, 'chainId'>[] = [
     symbol: 'MEE',
     networkId: NetworkId.aptos,
   },
+  {
+    address:
+      '0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::WBTC',
+    decimals: 6,
+    name: 'Wrapped BTC (LayerZero)',
+    symbol: 'zWBTC',
+    networkId: NetworkId.aptos,
+    logoURI:
+      'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/common/WBTC.webp',
+  },
 ];
