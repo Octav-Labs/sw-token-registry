@@ -17,16 +17,22 @@ export async function getCoingeckoCoinsList() {
     return gCoinsList;
 
   await sleep(600000);
-  const coinsListRes: AxiosResponse<GeckoCoin[]> = await axios.get(
-    'https://api.coingecko.com/api/v3/coins/list',
-    {
+  const coinsListRes: AxiosResponse<GeckoCoin[]> | null = await axios
+    .get('https://api.coingecko.com/api/v3/coins/list', {
       params: {
         include_platform: 'true',
       },
       timeout: 120000,
-    }
-  );
-  gCoinsList = coinsListRes.data;
-  gCoinsListTs = Date.now();
+    })
+    .catch((e) => {
+      if (e?.response?.status === 429) return null;
+      throw new Error(e);
+    });
+  if (coinsListRes?.data) {
+    gCoinsList = coinsListRes.data;
+    gCoinsListTs = Date.now();
+  }
+  if (!gCoinsList) throw new Error("Can't getCoingeckoCoinsList");
+
   return gCoinsList;
 }
