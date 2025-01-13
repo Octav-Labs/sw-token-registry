@@ -62,7 +62,7 @@ export const aptosTokens: Omit<RawToken, 'chainId'>[] = [
   {
     address:
       '0x111ae3e5bc816a5e63c2da97d0aa3886519e0cd5e4b046659fa35796bd11542a::stapt_token::StakedApt',
-    decimals: 6,
+    decimals: 8,
     name: 'Staked Aptos Coin',
     symbol: 'stAPT',
     networkId: NetworkId.aptos,
