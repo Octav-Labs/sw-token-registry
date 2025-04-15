@@ -41,4 +41,11 @@ export const solanaTokens: Omit<RawToken, 'chainId'>[] = [
     symbol: 'PYUSD',
     networkId: NetworkId.solana,
   },
+  {
+    address: '59obFNBzyTBGowrkif5uK7ojS58vsuWz3ZCvg6tfZAGw',
+    decimals: 6,
+    name: 'PayFi Strategy Token',
+    symbol: 'PST',
+    networkId: NetworkId.solana,
+  },
 ];
