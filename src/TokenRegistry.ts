@@ -26,7 +26,9 @@ const ajvToken = ajv.compile(tokenSchema);
 
 export type TokenRegistryConfig = {
   logger?: Logger;
-  redisOptions: RedisOptions;
+  redisOptions: RedisOptions & {
+    url?: string;
+  };
   fetchers: Partial<Record<NetworkIdType, Fetcher>>;
   redisTtlMs?: Milliseconds;
   memoryTtlMs?: Milliseconds;
@@ -61,7 +63,9 @@ export class TokenRegistry {
     });
 
     // Redis
-    this.redisClient = new Redis(config.redisOptions);
+    this.redisClient = config.redisOptions.url
+      ? new Redis(config.redisOptions.url, config.redisOptions)
+      : new Redis(config.redisOptions);
     // this.redisClient.on('connect', () => {
     //   this.logger?.info(`[${this.id}] TokenRegistry connected to Redis`);
     // });
