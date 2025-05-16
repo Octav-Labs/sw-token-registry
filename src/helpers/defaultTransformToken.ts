@@ -19,7 +19,7 @@ export async function defaultTransformToken(token: Token): Promise<Token> {
     .trim()
     .substring(0, 64);
 
-  let symbol = token.symbol;
+  let { symbol } = token;
   if (symbol === '') symbol = name;
 
   symbol = symbol
