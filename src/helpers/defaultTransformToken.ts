@@ -19,7 +19,10 @@ export async function defaultTransformToken(token: Token): Promise<Token> {
     .trim()
     .substring(0, 64);
 
-  let symbol = token.symbol
+  let symbol = token.symbol;
+  if (symbol === '') symbol = name;
+
+  symbol = symbol
     .replace(/[^\x20-\x7F]/g, '')
     .trim()
     .replaceAll(' ', '')
