@@ -17,6 +17,7 @@ describe('Token Schema Validation', () => {
         'https://nftstorage.link/ipfs/bafkreiamobqahwlwio5syavvfkknvfecgt7osbsh2s4xizihgpsajethyy',
       networkId: 'solana',
       sourceId: 'job-jupiter',
+      tags: ['community', 'strict', 'verified'],
     };
     const valid = ajvToken(token);
     expect(valid).toBe(true);
