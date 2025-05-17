@@ -16,9 +16,10 @@ type JupToken = {
   name: string;
   permanent_delegate: null | string;
   symbol: string;
+  tags: string[];
 };
 async function getJupTokens() {
-  const res = await axios.get('https://tokens.jup.ag/tokens', {
+  const res = await axios.get<JupToken[]>('https://tokens.jup.ag/tokens', {
     timeout: 240000,
   });
   if (!res || !res.data || !Array.isArray(res.data))
@@ -27,7 +28,7 @@ async function getJupTokens() {
 }
 
 const jobFct: JobFct = async () => {
-  const jupTokens: JupToken[] = await getJupTokens();
+  const jupTokens = await getJupTokens();
   const tokens = new Map<string, Token>();
   for (let i = 0; i < jupTokens.length; i += 1) {
     const jupToken = jupTokens[i];
@@ -43,6 +44,7 @@ const jobFct: JobFct = async () => {
       symbol: jupToken.symbol,
       logoURI: jupToken.logoURI ? jupToken.logoURI : undefined,
       networkId: NetworkId.solana,
+      tags: jupToken.tags,
       sourceId: 'job-jupiter',
     });
   }
