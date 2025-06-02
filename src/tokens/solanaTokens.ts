@@ -10,11 +10,7 @@ export const solanaTokens: Omit<RawToken, 'chainId'>[] = [
     symbol: 'SOL',
     logoURI:
       'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/common/SOL.webp',
-    tags: [
-      "community",
-      "strict",
-      "verified"
-    ]
+    tags: ['community', 'strict', 'verified'],
   },
   {
     address: 'So11111111111111111111111111111111111111112',
@@ -24,11 +20,7 @@ export const solanaTokens: Omit<RawToken, 'chainId'>[] = [
     symbol: 'wSOL',
     logoURI:
       'https://raw.githubusercontent.com/sonarwatch/token-registry/main/img/common/SOL.webp',
-    tags: [
-      "community",
-      "strict",
-      "verified"
-    ]
+    tags: ['community', 'strict', 'verified'],
   },
   {
     address: 'xAURp5XmAG7772mfkSy6vRAjGK9JofYjc3dmQDWdVDP',
@@ -57,9 +49,14 @@ export const solanaTokens: Omit<RawToken, 'chainId'>[] = [
     name: 'PayFi Strategy Token',
     symbol: 'PST',
     networkId: NetworkId.solana,
-    tags: [
-      "community-assist",
-      "verified"
-    ]
+    tags: ['community-assist', 'verified'],
+  },
+  {
+    address: 'WENWENvqqNya429ubCdR81ZmD69brwQaaBYY6p3LCpk',
+    decimals: 5,
+    name: 'Wen',
+    symbol: 'WEN',
+    networkId: NetworkId.solana,
+    tags: ['birdeye-trending', 'community', 'strict', 'verified'],
   },
 ];
