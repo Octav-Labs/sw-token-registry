@@ -59,4 +59,12 @@ export const solanaTokens: Omit<RawToken, 'chainId'>[] = [
     networkId: NetworkId.solana,
     tags: ['birdeye-trending', 'community', 'strict', 'verified'],
   },
+  {
+    address: 'WFRGB49tP8CdKubqCdt5Spo2BdGS4BpgoinNER5TYUm',
+    decimals: 8,
+    name: 'Wrapped Fragmetric Staked BTC',
+    symbol: 'wfragBTC',
+    networkId: NetworkId.solana,
+    tags: ['unknown'],
+  },
 ];
