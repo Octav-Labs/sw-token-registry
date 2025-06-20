@@ -4,7 +4,7 @@ import { getDefaultFetchers } from '../src/helpers/getDefaultFetchers';
 describe('TokenRegistry', () => {
   it('sould be instantiable', async () => {
     const fetchers = getDefaultFetchers({
-      solana: { dasUrl: 'https://foo.com' },
+      solana: { dasUrl: 'https://foo.com', datapiHeader: 'x-foo:bar' },
       ethereum: { rpc: 'https://foo.com' },
       sui: { rpc: 'https://foo.com' },
       aptos: { rpc: 'https://foo.com' },

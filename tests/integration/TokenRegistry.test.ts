@@ -12,6 +12,7 @@ describe('TokenRegistry', () => {
   let redisUsername: string | undefined;
   let redisPassword: string | undefined;
   let redisPort: string | undefined;
+  let datapiHeader: string | undefined;
   let dasUrl: string | undefined;
   let aptosRpc: string | undefined;
   let ethRpc: string | undefined;
@@ -32,6 +33,7 @@ describe('TokenRegistry', () => {
     redisPort = process.env.REDIS_PORT;
 
     // Fetchers
+    datapiHeader = process.env.DATAPI_HEADER;
     dasUrl = process.env.SOLANA_DAS;
     aptosRpc = process.env.APTOS_RPC;
     ethRpc = process.env.ETHEREUM_RPC;
@@ -41,6 +43,7 @@ describe('TokenRegistry', () => {
     bnbRpc = process.env.BNB_RPC;
 
     if (
+      !datapiHeader ||
       !dasUrl ||
       !aptosRpc ||
       !ethRpc ||
@@ -58,7 +61,7 @@ describe('TokenRegistry', () => {
       throw new Error('Some envs are missing');
 
     fetchers = getDefaultFetchers({
-      solana: { dasUrl },
+      solana: { dasUrl, datapiHeader },
       ethereum: { rpc: ethRpc },
       sui: { rpc: suiRpc },
       aptos: { rpc: aptosRpc },

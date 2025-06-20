@@ -8,6 +8,7 @@ import { RawToken } from '../types';
 import { isImageUrl } from '../helpers/isImageUrl';
 import { constTokensMap } from '../tokens/constTokens';
 import { getKey } from '../helpers/getKey';
+import { fetchJupToken } from '../helpers/fetchJupToken';
 
 type DasGetAsset = {
   error?: unknown;
@@ -34,10 +35,14 @@ type DasGetAsset = {
 export default class SolanaFetcher extends Fetcher {
   public readonly id: string = 'solana';
   private dasUrl: string;
+  private datapiHeaders?: { [key: string]: string };
 
-  constructor(dasUrl: string) {
+  constructor(dasUrl: string, datapiHeader?: string) {
     super();
     this.dasUrl = dasUrl;
+    this.datapiHeaders = datapiHeader
+      ? { [datapiHeader.split(':')[0]]: datapiHeader.split(':')[1] }
+      : undefined;
   }
   protected uniformTokenAddress(address: string): string {
     return uniformSolanaTokenAddress(address);
@@ -47,6 +52,11 @@ export default class SolanaFetcher extends Fetcher {
     const cToken = constTokensMap.get(getKey(address, NetworkId.solana));
     if (cToken) return cToken;
 
+    // Check Jupiter Datapi
+    const jupToken = await fetchJupToken(address, this.datapiHeaders);
+    if (jupToken) return jupToken;
+
+    // Check DAS
     const res: AxiosResponse<DasGetAsset> = await axios.post(this.dasUrl, {
       jsonrpc: '2.0',
       id: 'text',
