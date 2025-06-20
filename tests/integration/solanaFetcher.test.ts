@@ -3,11 +3,13 @@ import SolanaFetcher from '../../src/fetchers/solana';
 describe('SolanaFetcher', () => {
   const dasUrl = process.env.SOLANA_DAS;
   if (!dasUrl) throw new Error('SOLANA_DAS env is missing');
+  const datapiHeader = process.env.DATAPI_HEADER;
+  if (!datapiHeader) throw new Error('DATAPI_HEADER env is missing');
 
   let fetcher: SolanaFetcher;
 
   beforeEach(() => {
-    fetcher = new SolanaFetcher(dasUrl);
+    fetcher = new SolanaFetcher(dasUrl, datapiHeader);
   });
   it('should return null if address is valid but not a token', async () => {
     const address = '1112223334445555666777888uuuuuuuuuuuuuuuuuu';
@@ -83,5 +85,15 @@ describe('SolanaFetcher', () => {
     expect(tokenInfo?.symbol).toBe('SONAR');
     expect(tokenInfo?.chainId).toBe(101);
     expect(tokenInfo?.decimals).toBe(9);
+  });
+
+  it('should return SPOT token', async () => {
+    const address = '2v5JwEru3nP6gij2pPReDVxHSyi4GNwXECb5mNrzpump';
+    const tokenInfo = await fetcher.fetch(address);
+    expect(tokenInfo).not.toBeNull();
+    expect(tokenInfo?.logoURI).not.toBeUndefined();
+    expect(tokenInfo?.symbol).toBe('SPOT');
+    expect(tokenInfo?.chainId).toBe(101);
+    expect(tokenInfo?.decimals).toBe(6);
   });
 });

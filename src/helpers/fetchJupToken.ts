@@ -24,16 +24,15 @@ export async function fetchJupToken(
     [key: string]: string;
   }
 ): Promise<RawToken | null> {
-  const res: AxiosResponse<JupRes> = await axios.get(
-    `${datapiUrl}/v1/assets/search`,
-    {
+  const res: AxiosResponse<JupRes> | null = await axios
+    .get(`${datapiUrl}/v1/assets/search`, {
       params: {
         query: mint,
       },
       timeout: 10000,
       headers,
-    }
-  );
+    })
+    .catch(() => null);
 
   if (!res || !res.data) return null;
   if (!Array.isArray(res.data.result) || res.data.result.length !== 1)
