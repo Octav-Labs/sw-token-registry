@@ -71,6 +71,7 @@ describe('SolanaFetcher', () => {
     const address = 'HZ1JovNiVvGrGNiiYvEozEVgZ58xaU3RKwX8eACQBCt3';
     const tokenInfo = await fetcher.fetch(address);
     expect(tokenInfo).not.toBeNull();
+    expect(tokenInfo?.tags?.includes('verified')).toBe(true);
     expect(tokenInfo?.logoURI).not.toBeUndefined();
     expect(tokenInfo?.symbol).toBe('PYTH');
     expect(tokenInfo?.chainId).toBe(101);

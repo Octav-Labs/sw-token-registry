@@ -2,10 +2,6 @@ import axios, { AxiosResponse } from 'axios';
 import { NetworkId } from '@sonarwatch/portfolio-core';
 import { RawToken } from '../types';
 
-type JupRes = {
-  result: JupToken[];
-};
-
 type JupToken = {
   id: string;
   name: string;
@@ -24,7 +20,7 @@ export async function fetchJupToken(
     [key: string]: string;
   }
 ): Promise<RawToken | null> {
-  const res: AxiosResponse<JupRes> | null = await axios
+  const res: AxiosResponse<JupToken[]> | null = await axios
     .get(`${datapiUrl}/v1/assets/search`, {
       params: {
         query: mint,
@@ -35,10 +31,9 @@ export async function fetchJupToken(
     .catch(() => null);
 
   if (!res || !res.data) return null;
-  if (!Array.isArray(res.data.result) || res.data.result.length !== 1)
-    return null;
+  if (!Array.isArray(res.data) || res.data.length !== 1) return null;
 
-  const jupToken = res.data.result[0];
+  const jupToken = res.data[0];
   const token: RawToken = {
     address: jupToken.id,
     chainId: 101,
