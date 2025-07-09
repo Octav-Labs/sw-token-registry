@@ -16,4 +16,5 @@ npm version patch && git push origin main --tags
 npm run test -- -t 'isUri'
 npm run test:integration -- -t 'evmFetcher'
 npm run test:integration -- -t 'jupiterJob'
+npm run test:integration -- -t 'solanaFetcher'
 ```
