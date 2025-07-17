@@ -18,22 +18,20 @@ describe('SolanaFetcher', () => {
 
   it('should call the correct URL and return data when fetch is called', async () => {
     const address = 'HZ1JovNiVvGrGNiiYvEozEVgZ58xaU3RKwX8eACQBCt3';
-    const mockResponse = {
-      result: [
-        {
-          id: 'HZ1JovNiVvGrGNiiYvEozEVgZ58xaU3RKwX8eACQBCt3',
-          name: 'Pyth Network',
-          symbol: 'PYTH',
-          icon: 'https://pyth.network/token.svg',
-          decimals: 6,
-          tokenProgram: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
-          tags: ['birdeye-trending', 'community', 'strict', 'verified'],
-        },
-      ],
-    };
+    const mockJupiterResponse = [
+      {
+        id: 'HZ1JovNiVvGrGNiiYvEozEVgZ58xaU3RKwX8eACQBCt3',
+        name: 'Pyth Network',
+        symbol: 'PYTH',
+        icon: 'https://pyth.network/token.svg',
+        decimals: 6,
+        tokenProgram: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
+        tags: ['birdeye-trending', 'community', 'strict', 'verified'],
+      },
+    ];
 
     // Mocking axios.get to return a resolved promise with mock data
-    mockedAxios.get.mockResolvedValue({ data: mockResponse });
+    mockedAxios.get.mockResolvedValue({ data: mockJupiterResponse });
 
     // Call the fetch method
     const result = await fetcher.fetch(address);
