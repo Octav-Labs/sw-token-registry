@@ -25,7 +25,7 @@
     "lint": "eslint 'src/**/*.ts' 'tests/**/*.ts'",
     "format": "prettier --write 'src/**/*.ts' 'tests/**/*.ts'",
     "clean": "rm -rf dist",
-    "preversion": "npm run lint && npm run build"
+    "preversion": "npm run lint && npm run build && npm run test"
   },
   "keywords": [],
   "author": "",
